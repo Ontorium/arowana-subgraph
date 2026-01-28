@@ -1,13 +1,13 @@
 import { Address, Bytes } from "@graphprotocol/graph-ts";
 
 export const AGT_TOKEN = Address.fromString(
-    "0xe02b08b4e21baf8d364b547f932db939c76a33bf",
+    "0xfa23fd059662ab424a75691c03b62126afe78057",
 );
 export const USDT_TOKEN = Address.fromString(
-    "0x6777ab1c1ebfc40d3442202158bea959e04ac744",
+    "0xcf7b084757873062fc7a86320f400380f9358cda",
 );
 export const USDC_TOKEN = Address.fromString(
-    "0xc3437da5e936d3449d6f0700a71847305e9357be",
+    "0x9848bb9287ba3f87c8098dbf7533e604030fe912",
 );
 
 export const POOL_AGT_USDT = Address.fromString(

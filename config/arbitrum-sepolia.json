@@ -1,17 +1,17 @@
 {
   "network": "arbitrum-sepolia",
   "tokens": {
-    "AGT": "0xe02b08b4e21baf8d364b547f932db939c76a33bf",
-    "USDT": "0x6777ab1c1ebfc40d3442202158bea959e04ac744",
-    "USDC": "0xc3437da5e936d3449d6f0700a71847305e9357be"
+    "AGT": "0xfa23fd059662ab424a75691c03b62126afe78057",
+    "USDT": "0xcf7b084757873062fc7a86320f400380f9358cda",
+    "USDC": "0x9848bb9287ba3f87c8098dbf7533e604030fe912"
   },
   "contracts": {
     "GoldToken": {
-      "address": "0xE02B08b4e21bAf8d364B547F932dB939C76A33BF",
+      "address": "0xfa23fd059662ab424a75691c03b62126afe78057",
       "startBlock": 231300783
     },
     "GoldMinter": {
-      "address": "0x24A34A8168ac6e9CA4466cf03aE530377CA2AD62",
+      "address": "0x31bbe260be6cb4878f5df6319d9fe4acc730b469",
       "startBlock": 231300931
     }
   },

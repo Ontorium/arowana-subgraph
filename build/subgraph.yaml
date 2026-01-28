@@ -8,7 +8,7 @@ dataSources:
     name: GoldToken
     network: arbitrum-sepolia
     source:
-      address: "0xE02B08b4e21bAf8d364B547F932dB939C76A33BF"
+      address: "0xfa23fd059662ab424a75691c03b62126afe78057"
       abi: GoldToken
       startBlock: 231300783
     mapping:
@@ -32,7 +32,7 @@ dataSources:
     name: GoldMinter
     network: arbitrum-sepolia
     source:
-      address: "0x24A34A8168ac6e9CA4466cf03aE530377CA2AD62"
+      address: "0x31bbe260be6cb4878f5df6319d9fe4acc730b469"
       abi: GoldMinter
       startBlock: 231300931
     mapping:
