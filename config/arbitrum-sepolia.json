@@ -1,32 +1,32 @@
 {
-  "network": "arbitrum-sepolia",
-  "tokens": {
-    "AGT": "0xfa23fd059662ab424a75691c03b62126afe78057",
-    "USDT": "0xcf7b084757873062fc7a86320f400380f9358cda",
-    "USDC": "0x9848bb9287ba3f87c8098dbf7533e604030fe912"
-  },
-  "contracts": {
-    "GoldToken": {
-      "address": "0xfa23fd059662ab424a75691c03b62126afe78057",
-      "startBlock": 231300783
+    "network": "arbitrum-sepolia",
+    "tokens": {
+        "AGT": "0xfa23fd059662ab424a75691c03b62126afe78057",
+        "USDT": "0xcf7b084757873062fc7a86320f400380f9358cda",
+        "USDC": "0x9848bb9287ba3f87c8098dbf7533e604030fe912"
     },
-    "GoldMinter": {
-      "address": "0x31bbe260be6cb4878f5df6319d9fe4acc730b469",
-      "startBlock": 231300931
-    }
-  },
-  "pools": {
-    "AGT_USDT": {
-      "address": "0x958bD5d338A61868fF800C2Bb98b973a3102b7fE",
-      "token0": "USDT",
-      "token1": "AGT",
-      "startBlock": 231300783
+    "contracts": {
+        "GoldToken": {
+            "address": "0xfa23fd059662ab424a75691c03b62126afe78057",
+            "startBlock": 231300783
+        },
+        "GoldMinter": {
+            "address": "0x31bbe260be6cb4878f5df6319d9fe4acc730b469",
+            "startBlock": 231300931
+        }
     },
-    "AGT_USDC": {
-      "address": "0x7522681Bc79c8F60840f409fEc03051cBe04eEA9",
-      "token0": "USDC",
-      "token1": "AGT",
-      "startBlock": 231300783
+    "pools": {
+        "AGT_USDT": {
+            "address": "0x436D13E80CfbD0045AE1667201A792b60214793b",
+            "token0": "USDT",
+            "token1": "AGT",
+            "startBlock": 231300783
+        },
+        "AGT_USDC": {
+            "address": "0xEa4A71D0617CDaA4b2494a447016D6DF17fE2Ed9",
+            "token0": "USDC",
+            "token1": "AGT",
+            "startBlock": 231300783
+        }
     }
-  }
 }

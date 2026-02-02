@@ -70,9 +70,9 @@ dataSources:
       name: PancakeV2Pair_AGT_USDT
       network: arbitrum-sepolia
       source:
-          address: "0x958bD5d338A61868fF800C2Bb98b973a3102b7fE"
+          address: "0x436D13E80CfbD0045AE1667201A792b60214793b"
           abi: PancakeV2Pair
-          startBlock: 231300783
+          startBlock: 238175177
       mapping:
           kind: ethereum/events
           apiVersion: 0.0.7
@@ -96,9 +96,9 @@ dataSources:
       name: PancakeV2Pair_AGT_USDC
       network: arbitrum-sepolia
       source:
-          address: "0x7522681Bc79c8F60840f409fEc03051cBe04eEA9"
+          address: "0xEa4A71D0617CDaA4b2494a447016D6DF17fE2Ed9"
           abi: PancakeV2Pair
-          startBlock: 231300783
+          startBlock: 238175177
       mapping:
           kind: ethereum/events
           apiVersion: 0.0.7

@@ -11,10 +11,10 @@ export const USDC_TOKEN = Address.fromString(
 );
 
 export const POOL_AGT_USDT = Address.fromString(
-    "0x958bd5d338a61868ff800c2bb98b973a3102b7fe",
+    "0x436D13E80CfbD0045AE1667201A792b60214793b",
 );
 export const POOL_AGT_USDC = Address.fromString(
-    "0x7522681bc79c8f60840f409fec03051cbe04eea9",
+    "0xEa4A71D0617CDaA4b2494a447016D6DF17fE2Ed9",
 );
 
 export function isAGTToken0(poolAddress: Address): boolean {
