@@ -15,6 +15,13 @@ import {
 import { updateDailyMint, updateDailyRedeem } from "./utils/daily-stats";
 
 const STATS_ID = "1";
+const FEE_BPS = BigInt.fromI32(40); // 0.4% = 40 basis points
+const BPS_DENOMINATOR = BigInt.fromI32(10000);
+
+function calculateNetGoldAmount(grossGoldAmount: BigInt): BigInt {
+  let feeAmount = grossGoldAmount.times(FEE_BPS).div(BPS_DENOMINATOR);
+  return grossGoldAmount.minus(feeAmount);
+}
 
 function getOrCreateMintStats(): MintStats {
   let stats = MintStats.load(STATS_ID);
@@ -63,7 +70,10 @@ export function handleSettleMint(event: SettleMintEvent): void {
   let mintRequest = MintRequest.load(id);
 
   if (mintRequest != null) {
-    mintRequest.goldAmount = event.params.goldAmount;
+    let grossGoldAmount = event.params.goldAmount;
+    let netGoldAmount = calculateNetGoldAmount(grossGoldAmount);
+
+    mintRequest.goldAmount = netGoldAmount;
     mintRequest.success = event.params.success;
     mintRequest.status = "settled";
     mintRequest.settleBlockNumber = event.block.number;
@@ -75,12 +85,12 @@ export function handleSettleMint(event: SettleMintEvent): void {
     if (event.params.success) {
       let stats = getOrCreateMintStats();
       stats.totalMintCount = stats.totalMintCount.plus(BigInt.fromI32(1));
-      stats.totalMintVolume = stats.totalMintVolume.plus(event.params.goldAmount);
+      stats.totalMintVolume = stats.totalMintVolume.plus(netGoldAmount);
       stats.save();
 
       let userStats = getOrCreateUserMintStats(mintRequest.buyer, event.block.timestamp);
       userStats.mintCount = userStats.mintCount + 1;
-      userStats.totalMintVolume = userStats.totalMintVolume.plus(event.params.goldAmount);
+      userStats.totalMintVolume = userStats.totalMintVolume.plus(netGoldAmount);
       userStats.lastActivityAt = event.block.timestamp;
       userStats.save();
 
@@ -90,7 +100,7 @@ export function handleSettleMint(event: SettleMintEvent): void {
       );
       activity.user = mintRequest.buyer;
       activity.activityType = "mint";
-      activity.amount = event.params.goldAmount;
+      activity.amount = netGoldAmount;
       activity.relatedToken = mintRequest.usdToken;
       activity.relatedAmount = mintRequest.usdAmount;
       activity.blockNumber = event.block.number;
@@ -99,7 +109,7 @@ export function handleSettleMint(event: SettleMintEvent): void {
       activity.save();
 
       // Update daily stats
-      updateDailyMint(event.block.timestamp, event.params.goldAmount);
+      updateDailyMint(event.block.timestamp, netGoldAmount);
     }
   }
 }

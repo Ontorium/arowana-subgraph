@@ -10,7 +10,7 @@ dataSources:
     source:
       address: "0xE02B08b4e21bAf8d364B547F932dB939C76A33BF"
       abi: GoldToken
-      startBlock: 231300783
+      startBlock: 236807826
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -34,7 +34,7 @@ dataSources:
     source:
       address: "0x24A34A8168ac6e9CA4466cf03aE530377CA2AD62"
       abi: GoldMinter
-      startBlock: 231300931
+      startBlock: 236807826
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -65,7 +65,7 @@ dataSources:
     source:
       address: "0x958bD5d338A61868fF800C2Bb98b973a3102b7fE"
       abi: PancakeV2Pair
-      startBlock: 231300783
+      startBlock: 236807826
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -89,7 +89,7 @@ dataSources:
     source:
       address: "0x7522681Bc79c8F60840f409fEc03051cBe04eEA9"
       abi: PancakeV2Pair
-      startBlock: 231300783
+      startBlock: 236807826
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -107,3 +107,53 @@ dataSources:
         - event: Swap(indexed address,uint256,uint256,uint256,uint256,indexed address)
           handler: handleSwapV2
       file: PancakeV2Pair_AGT_USDT/PancakeV2Pair_AGT_USDT.wasm
+  - kind: ethereum
+    name: PancakeV3Pool_AGT_USDC
+    network: arbitrum-sepolia
+    source:
+      address: "0x25353758099f5D984ff6e1064D642e228b5fFD68"
+      abi: PancakeV3Pool
+      startBlock: 237189904
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Swap
+        - SwapStats
+        - UserSwapStats
+        - UserActivity
+        - DailyStats
+      abis:
+        - name: PancakeV3Pool
+          file: PancakeV3Pool_AGT_USDC/PancakeV3Pool.json
+      eventHandlers:
+        - event: Swap(indexed address,indexed
+            address,int256,int256,uint160,uint128,int24,uint128,uint128)
+          handler: handleSwapV3
+      file: PancakeV3Pool_AGT_USDC/PancakeV3Pool_AGT_USDC.wasm
+  - kind: ethereum
+    name: PancakeV3Pool_AGT_USDT
+    network: arbitrum-sepolia
+    source:
+      address: "0x43d29746bfb69D1FFB3BC6A73b3785D2c2B725E2"
+      abi: PancakeV3Pool
+      startBlock: 237189393
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Swap
+        - SwapStats
+        - UserSwapStats
+        - UserActivity
+        - DailyStats
+      abis:
+        - name: PancakeV3Pool
+          file: PancakeV3Pool_AGT_USDT/PancakeV3Pool.json
+      eventHandlers:
+        - event: Swap(indexed address,indexed
+            address,int256,int256,uint160,uint128,int24,uint128,uint128)
+          handler: handleSwapV3
+      file: PancakeV3Pool_AGT_USDC/PancakeV3Pool_AGT_USDC.wasm

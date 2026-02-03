@@ -10,63 +10,273 @@ import {
   BigInt,
 } from "@graphprotocol/graph-ts";
 
-export class RequestMint extends ethereum.Event {
-  get params(): RequestMint__Params {
-    return new RequestMint__Params(this);
+export class AMLBlacklisted extends ethereum.Event {
+  get params(): AMLBlacklisted__Params {
+    return new AMLBlacklisted__Params(this);
   }
 }
 
-export class RequestMint__Params {
-  _event: RequestMint;
+export class AMLBlacklisted__Params {
+  _event: AMLBlacklisted;
 
-  constructor(event: RequestMint) {
+  constructor(event: AMLBlacklisted) {
     this._event = event;
   }
 
-  get nonce(): BigInt {
+  get user(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get blacklisted(): boolean {
+    return this._event.parameters[1].value.toBoolean();
+  }
+}
+
+export class AddSettler extends ethereum.Event {
+  get params(): AddSettler__Params {
+    return new AddSettler__Params(this);
+  }
+}
+
+export class AddSettler__Params {
+  _event: AddSettler;
+
+  constructor(event: AddSettler) {
+    this._event = event;
+  }
+
+  get newSettler(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+}
+
+export class EIP712DomainChanged extends ethereum.Event {
+  get params(): EIP712DomainChanged__Params {
+    return new EIP712DomainChanged__Params(this);
+  }
+}
+
+export class EIP712DomainChanged__Params {
+  _event: EIP712DomainChanged;
+
+  constructor(event: EIP712DomainChanged) {
+    this._event = event;
+  }
+}
+
+export class EmergencyPaused extends ethereum.Event {
+  get params(): EmergencyPaused__Params {
+    return new EmergencyPaused__Params(this);
+  }
+}
+
+export class EmergencyPaused__Params {
+  _event: EmergencyPaused;
+
+  constructor(event: EmergencyPaused) {
+    this._event = event;
+  }
+
+  get by(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get paused(): boolean {
+    return this._event.parameters[1].value.toBoolean();
+  }
+}
+
+export class Initialized extends ethereum.Event {
+  get params(): Initialized__Params {
+    return new Initialized__Params(this);
+  }
+}
+
+export class Initialized__Params {
+  _event: Initialized;
+
+  constructor(event: Initialized) {
+    this._event = event;
+  }
+
+  get version(): BigInt {
     return this._event.parameters[0].value.toBigInt();
   }
+}
 
-  get buyer(): Address {
-    return this._event.parameters[1].value.toAddress();
+export class Initialized1 extends ethereum.Event {
+  get params(): Initialized1__Params {
+    return new Initialized1__Params(this);
+  }
+}
+
+export class Initialized1__Params {
+  _event: Initialized1;
+
+  constructor(event: Initialized1) {
+    this._event = event;
   }
 
-  get usdToken(): Address {
+  get goldToken(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get goldTokenDecimals(): i32 {
+    return this._event.parameters[1].value.toI32();
+  }
+
+  get USDT(): Address {
     return this._event.parameters[2].value.toAddress();
   }
 
-  get usdAmount(): BigInt {
-    return this._event.parameters[3].value.toBigInt();
+  get USDTDecimals(): i32 {
+    return this._event.parameters[3].value.toI32();
   }
 
-  get minGoldAmount(): BigInt {
-    return this._event.parameters[4].value.toBigInt();
+  get USDC(): Address {
+    return this._event.parameters[4].value.toAddress();
+  }
+
+  get USDCDecimals(): i32 {
+    return this._event.parameters[5].value.toI32();
+  }
+
+  get goldPriceFeed(): Address {
+    return this._event.parameters[6].value.toAddress();
   }
 }
 
-export class SettleMint extends ethereum.Event {
-  get params(): SettleMint__Params {
-    return new SettleMint__Params(this);
+export class KYCBurnRequested extends ethereum.Event {
+  get params(): KYCBurnRequested__Params {
+    return new KYCBurnRequested__Params(this);
   }
 }
 
-export class SettleMint__Params {
-  _event: SettleMint;
+export class KYCBurnRequested__Params {
+  _event: KYCBurnRequested;
 
-  constructor(event: SettleMint) {
+  constructor(event: KYCBurnRequested) {
     this._event = event;
   }
 
+  get user(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get newLevel(): i32 {
+    return this._event.parameters[1].value.toI32();
+  }
+
   get nonce(): BigInt {
-    return this._event.parameters[0].value.toBigInt();
+    return this._event.parameters[2].value.toBigInt();
+  }
+
+  get usdToken(): Address {
+    return this._event.parameters[3].value.toAddress();
   }
 
   get goldAmount(): BigInt {
-    return this._event.parameters[1].value.toBigInt();
+    return this._event.parameters[4].value.toBigInt();
   }
 
-  get success(): boolean {
-    return this._event.parameters[2].value.toBoolean();
+  get minUsdAmount(): BigInt {
+    return this._event.parameters[5].value.toBigInt();
+  }
+}
+
+export class KYCMintRequested extends ethereum.Event {
+  get params(): KYCMintRequested__Params {
+    return new KYCMintRequested__Params(this);
+  }
+}
+
+export class KYCMintRequested__Params {
+  _event: KYCMintRequested;
+
+  constructor(event: KYCMintRequested) {
+    this._event = event;
+  }
+
+  get user(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get newLevel(): i32 {
+    return this._event.parameters[1].value.toI32();
+  }
+
+  get nonce(): BigInt {
+    return this._event.parameters[2].value.toBigInt();
+  }
+
+  get usdToken(): Address {
+    return this._event.parameters[3].value.toAddress();
+  }
+
+  get usdAmount(): BigInt {
+    return this._event.parameters[4].value.toBigInt();
+  }
+
+  get minGoldAmount(): BigInt {
+    return this._event.parameters[5].value.toBigInt();
+  }
+}
+
+export class OwnershipTransferred extends ethereum.Event {
+  get params(): OwnershipTransferred__Params {
+    return new OwnershipTransferred__Params(this);
+  }
+}
+
+export class OwnershipTransferred__Params {
+  _event: OwnershipTransferred;
+
+  constructor(event: OwnershipTransferred) {
+    this._event = event;
+  }
+
+  get previousOwner(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get newOwner(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
+}
+
+export class Paused extends ethereum.Event {
+  get params(): Paused__Params {
+    return new Paused__Params(this);
+  }
+}
+
+export class Paused__Params {
+  _event: Paused;
+
+  constructor(event: Paused) {
+    this._event = event;
+  }
+
+  get account(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+}
+
+export class RemoveSettler extends ethereum.Event {
+  get params(): RemoveSettler__Params {
+    return new RemoveSettler__Params(this);
+  }
+}
+
+export class RemoveSettler__Params {
+  _event: RemoveSettler;
+
+  constructor(event: RemoveSettler) {
+    this._event = event;
+  }
+
+  get oldSettler(): Address {
+    return this._event.parameters[0].value.toAddress();
   }
 }
 
@@ -104,6 +314,40 @@ export class RequestBurn__Params {
   }
 }
 
+export class RequestMint extends ethereum.Event {
+  get params(): RequestMint__Params {
+    return new RequestMint__Params(this);
+  }
+}
+
+export class RequestMint__Params {
+  _event: RequestMint;
+
+  constructor(event: RequestMint) {
+    this._event = event;
+  }
+
+  get nonce(): BigInt {
+    return this._event.parameters[0].value.toBigInt();
+  }
+
+  get buyer(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
+
+  get usdToken(): Address {
+    return this._event.parameters[2].value.toAddress();
+  }
+
+  get usdAmount(): BigInt {
+    return this._event.parameters[3].value.toBigInt();
+  }
+
+  get minGoldAmount(): BigInt {
+    return this._event.parameters[4].value.toBigInt();
+  }
+}
+
 export class SettleBurn extends ethereum.Event {
   get params(): SettleBurn__Params {
     return new SettleBurn__Params(this);
@@ -130,8 +374,1837 @@ export class SettleBurn__Params {
   }
 }
 
+export class SettleMint extends ethereum.Event {
+  get params(): SettleMint__Params {
+    return new SettleMint__Params(this);
+  }
+}
+
+export class SettleMint__Params {
+  _event: SettleMint;
+
+  constructor(event: SettleMint) {
+    this._event = event;
+  }
+
+  get nonce(): BigInt {
+    return this._event.parameters[0].value.toBigInt();
+  }
+
+  get goldAmount(): BigInt {
+    return this._event.parameters[1].value.toBigInt();
+  }
+
+  get success(): boolean {
+    return this._event.parameters[2].value.toBoolean();
+  }
+}
+
+export class Unpaused extends ethereum.Event {
+  get params(): Unpaused__Params {
+    return new Unpaused__Params(this);
+  }
+}
+
+export class Unpaused__Params {
+  _event: Unpaused;
+
+  constructor(event: Unpaused) {
+    this._event = event;
+  }
+
+  get account(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+}
+
+export class UpdateAutoSettle extends ethereum.Event {
+  get params(): UpdateAutoSettle__Params {
+    return new UpdateAutoSettle__Params(this);
+  }
+}
+
+export class UpdateAutoSettle__Params {
+  _event: UpdateAutoSettle;
+
+  constructor(event: UpdateAutoSettle) {
+    this._event = event;
+  }
+
+  get settle(): boolean {
+    return this._event.parameters[0].value.toBoolean();
+  }
+}
+
+export class UpdateFees extends ethereum.Event {
+  get params(): UpdateFees__Params {
+    return new UpdateFees__Params(this);
+  }
+}
+
+export class UpdateFees__Params {
+  _event: UpdateFees;
+
+  constructor(event: UpdateFees) {
+    this._event = event;
+  }
+
+  get newFees(): i32 {
+    return this._event.parameters[0].value.toI32();
+  }
+}
+
+export class UpdateLevel extends ethereum.Event {
+  get params(): UpdateLevel__Params {
+    return new UpdateLevel__Params(this);
+  }
+}
+
+export class UpdateLevel__Params {
+  _event: UpdateLevel;
+
+  constructor(event: UpdateLevel) {
+    this._event = event;
+  }
+
+  get user(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get level(): i32 {
+    return this._event.parameters[1].value.toI32();
+  }
+}
+
+export class UpdateMaxPriceAge extends ethereum.Event {
+  get params(): UpdateMaxPriceAge__Params {
+    return new UpdateMaxPriceAge__Params(this);
+  }
+}
+
+export class UpdateMaxPriceAge__Params {
+  _event: UpdateMaxPriceAge;
+
+  constructor(event: UpdateMaxPriceAge) {
+    this._event = event;
+  }
+
+  get newMaxPriceAge(): BigInt {
+    return this._event.parameters[0].value.toBigInt();
+  }
+}
+
+export class UpdateMinGold extends ethereum.Event {
+  get params(): UpdateMinGold__Params {
+    return new UpdateMinGold__Params(this);
+  }
+}
+
+export class UpdateMinGold__Params {
+  _event: UpdateMinGold;
+
+  constructor(event: UpdateMinGold) {
+    this._event = event;
+  }
+
+  get minGoldAmount(): BigInt {
+    return this._event.parameters[0].value.toBigInt();
+  }
+}
+
+export class UpdateMinGoldFee extends ethereum.Event {
+  get params(): UpdateMinGoldFee__Params {
+    return new UpdateMinGoldFee__Params(this);
+  }
+}
+
+export class UpdateMinGoldFee__Params {
+  _event: UpdateMinGoldFee;
+
+  constructor(event: UpdateMinGoldFee) {
+    this._event = event;
+  }
+
+  get minGoldFee(): BigInt {
+    return this._event.parameters[0].value.toBigInt();
+  }
+}
+
+export class UpdateMinGoldFeeAmount extends ethereum.Event {
+  get params(): UpdateMinGoldFeeAmount__Params {
+    return new UpdateMinGoldFeeAmount__Params(this);
+  }
+}
+
+export class UpdateMinGoldFeeAmount__Params {
+  _event: UpdateMinGoldFeeAmount;
+
+  constructor(event: UpdateMinGoldFeeAmount) {
+    this._event = event;
+  }
+
+  get minGoldFeeAmount(): BigInt {
+    return this._event.parameters[0].value.toBigInt();
+  }
+}
+
+export class UpdatePriceFeed extends ethereum.Event {
+  get params(): UpdatePriceFeed__Params {
+    return new UpdatePriceFeed__Params(this);
+  }
+}
+
+export class UpdatePriceFeed__Params {
+  _event: UpdatePriceFeed;
+
+  constructor(event: UpdatePriceFeed) {
+    this._event = event;
+  }
+
+  get newPriceFeed(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+}
+
+export class UpdateRecipient extends ethereum.Event {
+  get params(): UpdateRecipient__Params {
+    return new UpdateRecipient__Params(this);
+  }
+}
+
+export class UpdateRecipient__Params {
+  _event: UpdateRecipient;
+
+  constructor(event: UpdateRecipient) {
+    this._event = event;
+  }
+
+  get newRecipient(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+}
+
+export class UpdateSlippage extends ethereum.Event {
+  get params(): UpdateSlippage__Params {
+    return new UpdateSlippage__Params(this);
+  }
+}
+
+export class UpdateSlippage__Params {
+  _event: UpdateSlippage;
+
+  constructor(event: UpdateSlippage) {
+    this._event = event;
+  }
+
+  get newSlippage(): i32 {
+    return this._event.parameters[0].value.toI32();
+  }
+}
+
+export class UpdateTradingLevel extends ethereum.Event {
+  get params(): UpdateTradingLevel__Params {
+    return new UpdateTradingLevel__Params(this);
+  }
+}
+
+export class UpdateTradingLevel__Params {
+  _event: UpdateTradingLevel;
+
+  constructor(event: UpdateTradingLevel) {
+    this._event = event;
+  }
+
+  get level(): i32 {
+    return this._event.parameters[0].value.toI32();
+  }
+}
+
+export class GoldMinter__eip712DomainResult {
+  value0: Bytes;
+  value1: string;
+  value2: string;
+  value3: BigInt;
+  value4: Address;
+  value5: Bytes;
+  value6: Array<BigInt>;
+
+  constructor(
+    value0: Bytes,
+    value1: string,
+    value2: string,
+    value3: BigInt,
+    value4: Address,
+    value5: Bytes,
+    value6: Array<BigInt>,
+  ) {
+    this.value0 = value0;
+    this.value1 = value1;
+    this.value2 = value2;
+    this.value3 = value3;
+    this.value4 = value4;
+    this.value5 = value5;
+    this.value6 = value6;
+  }
+
+  toMap(): TypedMap<string, ethereum.Value> {
+    let map = new TypedMap<string, ethereum.Value>();
+    map.set("value0", ethereum.Value.fromFixedBytes(this.value0));
+    map.set("value1", ethereum.Value.fromString(this.value1));
+    map.set("value2", ethereum.Value.fromString(this.value2));
+    map.set("value3", ethereum.Value.fromUnsignedBigInt(this.value3));
+    map.set("value4", ethereum.Value.fromAddress(this.value4));
+    map.set("value5", ethereum.Value.fromFixedBytes(this.value5));
+    map.set("value6", ethereum.Value.fromUnsignedBigIntArray(this.value6));
+    return map;
+  }
+
+  getFields(): Bytes {
+    return this.value0;
+  }
+
+  getName(): string {
+    return this.value1;
+  }
+
+  getVersion(): string {
+    return this.value2;
+  }
+
+  getChainId(): BigInt {
+    return this.value3;
+  }
+
+  getVerifyingContract(): Address {
+    return this.value4;
+  }
+
+  getSalt(): Bytes {
+    return this.value5;
+  }
+
+  getExtensions(): Array<BigInt> {
+    return this.value6;
+  }
+}
+
 export class GoldMinter extends ethereum.SmartContract {
   static bind(address: Address): GoldMinter {
     return new GoldMinter("GoldMinter", address);
+  }
+
+  CONVERSION_PRECISION(): BigInt {
+    let result = super.call(
+      "CONVERSION_PRECISION",
+      "CONVERSION_PRECISION():(uint256)",
+      [],
+    );
+
+    return result[0].toBigInt();
+  }
+
+  try_CONVERSION_PRECISION(): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "CONVERSION_PRECISION",
+      "CONVERSION_PRECISION():(uint256)",
+      [],
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
+  GRAMS_PER_OUNCE(): BigInt {
+    let result = super.call(
+      "GRAMS_PER_OUNCE",
+      "GRAMS_PER_OUNCE():(uint256)",
+      [],
+    );
+
+    return result[0].toBigInt();
+  }
+
+  try_GRAMS_PER_OUNCE(): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "GRAMS_PER_OUNCE",
+      "GRAMS_PER_OUNCE():(uint256)",
+      [],
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
+  KYC_BURN_REQUEST_TYPEHASH(): Bytes {
+    let result = super.call(
+      "KYC_BURN_REQUEST_TYPEHASH",
+      "KYC_BURN_REQUEST_TYPEHASH():(bytes32)",
+      [],
+    );
+
+    return result[0].toBytes();
+  }
+
+  try_KYC_BURN_REQUEST_TYPEHASH(): ethereum.CallResult<Bytes> {
+    let result = super.tryCall(
+      "KYC_BURN_REQUEST_TYPEHASH",
+      "KYC_BURN_REQUEST_TYPEHASH():(bytes32)",
+      [],
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBytes());
+  }
+
+  KYC_MINT_REQUEST_TYPEHASH(): Bytes {
+    let result = super.call(
+      "KYC_MINT_REQUEST_TYPEHASH",
+      "KYC_MINT_REQUEST_TYPEHASH():(bytes32)",
+      [],
+    );
+
+    return result[0].toBytes();
+  }
+
+  try_KYC_MINT_REQUEST_TYPEHASH(): ethereum.CallResult<Bytes> {
+    let result = super.tryCall(
+      "KYC_MINT_REQUEST_TYPEHASH",
+      "KYC_MINT_REQUEST_TYPEHASH():(bytes32)",
+      [],
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBytes());
+  }
+
+  USDC(): Address {
+    let result = super.call("USDC", "USDC():(address)", []);
+
+    return result[0].toAddress();
+  }
+
+  try_USDC(): ethereum.CallResult<Address> {
+    let result = super.tryCall("USDC", "USDC():(address)", []);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
+  USDT(): Address {
+    let result = super.call("USDT", "USDT():(address)", []);
+
+    return result[0].toAddress();
+  }
+
+  try_USDT(): ethereum.CallResult<Address> {
+    let result = super.tryCall("USDT", "USDT():(address)", []);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
+  calculateGoldFee(_goldAmount: BigInt): BigInt {
+    let result = super.call(
+      "calculateGoldFee",
+      "calculateGoldFee(uint256):(uint256)",
+      [ethereum.Value.fromUnsignedBigInt(_goldAmount)],
+    );
+
+    return result[0].toBigInt();
+  }
+
+  try_calculateGoldFee(_goldAmount: BigInt): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "calculateGoldFee",
+      "calculateGoldFee(uint256):(uint256)",
+      [ethereum.Value.fromUnsignedBigInt(_goldAmount)],
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
+  canBurn(usdToken: Address, usdAmount: BigInt): boolean {
+    let result = super.call("canBurn", "canBurn(address,uint256):(bool)", [
+      ethereum.Value.fromAddress(usdToken),
+      ethereum.Value.fromUnsignedBigInt(usdAmount),
+    ]);
+
+    return result[0].toBoolean();
+  }
+
+  try_canBurn(
+    usdToken: Address,
+    usdAmount: BigInt,
+  ): ethereum.CallResult<boolean> {
+    let result = super.tryCall("canBurn", "canBurn(address,uint256):(bool)", [
+      ethereum.Value.fromAddress(usdToken),
+      ethereum.Value.fromUnsignedBigInt(usdAmount),
+    ]);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBoolean());
+  }
+
+  eip712Domain(): GoldMinter__eip712DomainResult {
+    let result = super.call(
+      "eip712Domain",
+      "eip712Domain():(bytes1,string,string,uint256,address,bytes32,uint256[])",
+      [],
+    );
+
+    return new GoldMinter__eip712DomainResult(
+      result[0].toBytes(),
+      result[1].toString(),
+      result[2].toString(),
+      result[3].toBigInt(),
+      result[4].toAddress(),
+      result[5].toBytes(),
+      result[6].toBigIntArray(),
+    );
+  }
+
+  try_eip712Domain(): ethereum.CallResult<GoldMinter__eip712DomainResult> {
+    let result = super.tryCall(
+      "eip712Domain",
+      "eip712Domain():(bytes1,string,string,uint256,address,bytes32,uint256[])",
+      [],
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(
+      new GoldMinter__eip712DomainResult(
+        value[0].toBytes(),
+        value[1].toString(),
+        value[2].toString(),
+        value[3].toBigInt(),
+        value[4].toAddress(),
+        value[5].toBytes(),
+        value[6].toBigIntArray(),
+      ),
+    );
+  }
+
+  fees(): i32 {
+    let result = super.call("fees", "fees():(uint16)", []);
+
+    return result[0].toI32();
+  }
+
+  try_fees(): ethereum.CallResult<i32> {
+    let result = super.tryCall("fees", "fees():(uint16)", []);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toI32());
+  }
+
+  getGoldAmount(usdToken: Address, usdAmount: BigInt): BigInt {
+    let result = super.call(
+      "getGoldAmount",
+      "getGoldAmount(address,uint256):(uint256)",
+      [
+        ethereum.Value.fromAddress(usdToken),
+        ethereum.Value.fromUnsignedBigInt(usdAmount),
+      ],
+    );
+
+    return result[0].toBigInt();
+  }
+
+  try_getGoldAmount(
+    usdToken: Address,
+    usdAmount: BigInt,
+  ): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "getGoldAmount",
+      "getGoldAmount(address,uint256):(uint256)",
+      [
+        ethereum.Value.fromAddress(usdToken),
+        ethereum.Value.fromUnsignedBigInt(usdAmount),
+      ],
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
+  getUsdAmount(usdToken: Address, goldAmount: BigInt): BigInt {
+    let result = super.call(
+      "getUsdAmount",
+      "getUsdAmount(address,uint256):(uint256)",
+      [
+        ethereum.Value.fromAddress(usdToken),
+        ethereum.Value.fromUnsignedBigInt(goldAmount),
+      ],
+    );
+
+    return result[0].toBigInt();
+  }
+
+  try_getUsdAmount(
+    usdToken: Address,
+    goldAmount: BigInt,
+  ): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "getUsdAmount",
+      "getUsdAmount(address,uint256):(uint256)",
+      [
+        ethereum.Value.fromAddress(usdToken),
+        ethereum.Value.fromUnsignedBigInt(goldAmount),
+      ],
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
+  goldToken(): Address {
+    let result = super.call("goldToken", "goldToken():(address)", []);
+
+    return result[0].toAddress();
+  }
+
+  try_goldToken(): ethereum.CallResult<Address> {
+    let result = super.tryCall("goldToken", "goldToken():(address)", []);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
+  isAMLBlacklisted(user: Address): boolean {
+    let result = super.call(
+      "isAMLBlacklisted",
+      "isAMLBlacklisted(address):(bool)",
+      [ethereum.Value.fromAddress(user)],
+    );
+
+    return result[0].toBoolean();
+  }
+
+  try_isAMLBlacklisted(user: Address): ethereum.CallResult<boolean> {
+    let result = super.tryCall(
+      "isAMLBlacklisted",
+      "isAMLBlacklisted(address):(bool)",
+      [ethereum.Value.fromAddress(user)],
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBoolean());
+  }
+
+  kycNonces(_target: Address): BigInt {
+    let result = super.call("kycNonces", "kycNonces(address):(uint256)", [
+      ethereum.Value.fromAddress(_target),
+    ]);
+
+    return result[0].toBigInt();
+  }
+
+  try_kycNonces(_target: Address): ethereum.CallResult<BigInt> {
+    let result = super.tryCall("kycNonces", "kycNonces(address):(uint256)", [
+      ethereum.Value.fromAddress(_target),
+    ]);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
+  levels(_target: Address): i32 {
+    let result = super.call("levels", "levels(address):(uint8)", [
+      ethereum.Value.fromAddress(_target),
+    ]);
+
+    return result[0].toI32();
+  }
+
+  try_levels(_target: Address): ethereum.CallResult<i32> {
+    let result = super.tryCall("levels", "levels(address):(uint8)", [
+      ethereum.Value.fromAddress(_target),
+    ]);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toI32());
+  }
+
+  minGoldAmount(): BigInt {
+    let result = super.call("minGoldAmount", "minGoldAmount():(uint256)", []);
+
+    return result[0].toBigInt();
+  }
+
+  try_minGoldAmount(): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "minGoldAmount",
+      "minGoldAmount():(uint256)",
+      [],
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
+  minGoldFee(): BigInt {
+    let result = super.call("minGoldFee", "minGoldFee():(uint256)", []);
+
+    return result[0].toBigInt();
+  }
+
+  try_minGoldFee(): ethereum.CallResult<BigInt> {
+    let result = super.tryCall("minGoldFee", "minGoldFee():(uint256)", []);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
+  minGoldFeeAmount(): BigInt {
+    let result = super.call(
+      "minGoldFeeAmount",
+      "minGoldFeeAmount():(uint256)",
+      [],
+    );
+
+    return result[0].toBigInt();
+  }
+
+  try_minGoldFeeAmount(): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "minGoldFeeAmount",
+      "minGoldFeeAmount():(uint256)",
+      [],
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
+  owner(): Address {
+    let result = super.call("owner", "owner():(address)", []);
+
+    return result[0].toAddress();
+  }
+
+  try_owner(): ethereum.CallResult<Address> {
+    let result = super.tryCall("owner", "owner():(address)", []);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
+  paused(): boolean {
+    let result = super.call("paused", "paused():(bool)", []);
+
+    return result[0].toBoolean();
+  }
+
+  try_paused(): ethereum.CallResult<boolean> {
+    let result = super.tryCall("paused", "paused():(bool)", []);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBoolean());
+  }
+
+  settlers(): Array<Address> {
+    let result = super.call("settlers", "settlers():(address[])", []);
+
+    return result[0].toAddressArray();
+  }
+
+  try_settlers(): ethereum.CallResult<Array<Address>> {
+    let result = super.tryCall("settlers", "settlers():(address[])", []);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddressArray());
+  }
+
+  slippage(): i32 {
+    let result = super.call("slippage", "slippage():(uint16)", []);
+
+    return result[0].toI32();
+  }
+
+  try_slippage(): ethereum.CallResult<i32> {
+    let result = super.tryCall("slippage", "slippage():(uint16)", []);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toI32());
+  }
+
+  tradeLevel(): i32 {
+    let result = super.call("tradeLevel", "tradeLevel():(uint8)", []);
+
+    return result[0].toI32();
+  }
+
+  try_tradeLevel(): ethereum.CallResult<i32> {
+    let result = super.tryCall("tradeLevel", "tradeLevel():(uint8)", []);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toI32());
+  }
+}
+
+export class ConstructorCall extends ethereum.Call {
+  get inputs(): ConstructorCall__Inputs {
+    return new ConstructorCall__Inputs(this);
+  }
+
+  get outputs(): ConstructorCall__Outputs {
+    return new ConstructorCall__Outputs(this);
+  }
+}
+
+export class ConstructorCall__Inputs {
+  _call: ConstructorCall;
+
+  constructor(call: ConstructorCall) {
+    this._call = call;
+  }
+}
+
+export class ConstructorCall__Outputs {
+  _call: ConstructorCall;
+
+  constructor(call: ConstructorCall) {
+    this._call = call;
+  }
+}
+
+export class AddSettlerCall extends ethereum.Call {
+  get inputs(): AddSettlerCall__Inputs {
+    return new AddSettlerCall__Inputs(this);
+  }
+
+  get outputs(): AddSettlerCall__Outputs {
+    return new AddSettlerCall__Outputs(this);
+  }
+}
+
+export class AddSettlerCall__Inputs {
+  _call: AddSettlerCall;
+
+  constructor(call: AddSettlerCall) {
+    this._call = call;
+  }
+
+  get _settler(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+}
+
+export class AddSettlerCall__Outputs {
+  _call: AddSettlerCall;
+
+  constructor(call: AddSettlerCall) {
+    this._call = call;
+  }
+}
+
+export class EmergencyPauseCall extends ethereum.Call {
+  get inputs(): EmergencyPauseCall__Inputs {
+    return new EmergencyPauseCall__Inputs(this);
+  }
+
+  get outputs(): EmergencyPauseCall__Outputs {
+    return new EmergencyPauseCall__Outputs(this);
+  }
+}
+
+export class EmergencyPauseCall__Inputs {
+  _call: EmergencyPauseCall;
+
+  constructor(call: EmergencyPauseCall) {
+    this._call = call;
+  }
+}
+
+export class EmergencyPauseCall__Outputs {
+  _call: EmergencyPauseCall;
+
+  constructor(call: EmergencyPauseCall) {
+    this._call = call;
+  }
+}
+
+export class EmergencyUnpauseCall extends ethereum.Call {
+  get inputs(): EmergencyUnpauseCall__Inputs {
+    return new EmergencyUnpauseCall__Inputs(this);
+  }
+
+  get outputs(): EmergencyUnpauseCall__Outputs {
+    return new EmergencyUnpauseCall__Outputs(this);
+  }
+}
+
+export class EmergencyUnpauseCall__Inputs {
+  _call: EmergencyUnpauseCall;
+
+  constructor(call: EmergencyUnpauseCall) {
+    this._call = call;
+  }
+}
+
+export class EmergencyUnpauseCall__Outputs {
+  _call: EmergencyUnpauseCall;
+
+  constructor(call: EmergencyUnpauseCall) {
+    this._call = call;
+  }
+}
+
+export class InitializeGoldMinterCall extends ethereum.Call {
+  get inputs(): InitializeGoldMinterCall__Inputs {
+    return new InitializeGoldMinterCall__Inputs(this);
+  }
+
+  get outputs(): InitializeGoldMinterCall__Outputs {
+    return new InitializeGoldMinterCall__Outputs(this);
+  }
+}
+
+export class InitializeGoldMinterCall__Inputs {
+  _call: InitializeGoldMinterCall;
+
+  constructor(call: InitializeGoldMinterCall) {
+    this._call = call;
+  }
+
+  get _goldToken(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get _USDT(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
+  get _USDC(): Address {
+    return this._call.inputValues[2].value.toAddress();
+  }
+
+  get _goldPriceFeed(): Address {
+    return this._call.inputValues[3].value.toAddress();
+  }
+
+  get _usdRecipient(): Address {
+    return this._call.inputValues[4].value.toAddress();
+  }
+
+  get _owner(): Address {
+    return this._call.inputValues[5].value.toAddress();
+  }
+
+  get _autoSettle(): boolean {
+    return this._call.inputValues[6].value.toBoolean();
+  }
+}
+
+export class InitializeGoldMinterCall__Outputs {
+  _call: InitializeGoldMinterCall;
+
+  constructor(call: InitializeGoldMinterCall) {
+    this._call = call;
+  }
+}
+
+export class InitializeSettlerCall extends ethereum.Call {
+  get inputs(): InitializeSettlerCall__Inputs {
+    return new InitializeSettlerCall__Inputs(this);
+  }
+
+  get outputs(): InitializeSettlerCall__Outputs {
+    return new InitializeSettlerCall__Outputs(this);
+  }
+}
+
+export class InitializeSettlerCall__Inputs {
+  _call: InitializeSettlerCall;
+
+  constructor(call: InitializeSettlerCall) {
+    this._call = call;
+  }
+
+  get _initOwner(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+}
+
+export class InitializeSettlerCall__Outputs {
+  _call: InitializeSettlerCall;
+
+  constructor(call: InitializeSettlerCall) {
+    this._call = call;
+  }
+}
+
+export class RemoveSettlerCall extends ethereum.Call {
+  get inputs(): RemoveSettlerCall__Inputs {
+    return new RemoveSettlerCall__Inputs(this);
+  }
+
+  get outputs(): RemoveSettlerCall__Outputs {
+    return new RemoveSettlerCall__Outputs(this);
+  }
+}
+
+export class RemoveSettlerCall__Inputs {
+  _call: RemoveSettlerCall;
+
+  constructor(call: RemoveSettlerCall) {
+    this._call = call;
+  }
+
+  get _settler(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+}
+
+export class RemoveSettlerCall__Outputs {
+  _call: RemoveSettlerCall;
+
+  constructor(call: RemoveSettlerCall) {
+    this._call = call;
+  }
+}
+
+export class RenounceOwnershipCall extends ethereum.Call {
+  get inputs(): RenounceOwnershipCall__Inputs {
+    return new RenounceOwnershipCall__Inputs(this);
+  }
+
+  get outputs(): RenounceOwnershipCall__Outputs {
+    return new RenounceOwnershipCall__Outputs(this);
+  }
+}
+
+export class RenounceOwnershipCall__Inputs {
+  _call: RenounceOwnershipCall;
+
+  constructor(call: RenounceOwnershipCall) {
+    this._call = call;
+  }
+}
+
+export class RenounceOwnershipCall__Outputs {
+  _call: RenounceOwnershipCall;
+
+  constructor(call: RenounceOwnershipCall) {
+    this._call = call;
+  }
+}
+
+export class RequestBurnCall extends ethereum.Call {
+  get inputs(): RequestBurnCall__Inputs {
+    return new RequestBurnCall__Inputs(this);
+  }
+
+  get outputs(): RequestBurnCall__Outputs {
+    return new RequestBurnCall__Outputs(this);
+  }
+}
+
+export class RequestBurnCall__Inputs {
+  _call: RequestBurnCall;
+
+  constructor(call: RequestBurnCall) {
+    this._call = call;
+  }
+
+  get _usdToken(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get _goldAmount(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
+  }
+
+  get _minUsdAmount(): BigInt {
+    return this._call.inputValues[2].value.toBigInt();
+  }
+}
+
+export class RequestBurnCall__Outputs {
+  _call: RequestBurnCall;
+
+  constructor(call: RequestBurnCall) {
+    this._call = call;
+  }
+}
+
+export class RequestBurnPermitCall extends ethereum.Call {
+  get inputs(): RequestBurnPermitCall__Inputs {
+    return new RequestBurnPermitCall__Inputs(this);
+  }
+
+  get outputs(): RequestBurnPermitCall__Outputs {
+    return new RequestBurnPermitCall__Outputs(this);
+  }
+}
+
+export class RequestBurnPermitCall__Inputs {
+  _call: RequestBurnPermitCall;
+
+  constructor(call: RequestBurnPermitCall) {
+    this._call = call;
+  }
+
+  get _usdToken(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get _goldAmount(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
+  }
+
+  get _minUsdAmount(): BigInt {
+    return this._call.inputValues[2].value.toBigInt();
+  }
+
+  get _sigDeadline(): BigInt {
+    return this._call.inputValues[3].value.toBigInt();
+  }
+
+  get _signature(): Bytes {
+    return this._call.inputValues[4].value.toBytes();
+  }
+}
+
+export class RequestBurnPermitCall__Outputs {
+  _call: RequestBurnPermitCall;
+
+  constructor(call: RequestBurnPermitCall) {
+    this._call = call;
+  }
+}
+
+export class RequestBurnWithKYCCall extends ethereum.Call {
+  get inputs(): RequestBurnWithKYCCall__Inputs {
+    return new RequestBurnWithKYCCall__Inputs(this);
+  }
+
+  get outputs(): RequestBurnWithKYCCall__Outputs {
+    return new RequestBurnWithKYCCall__Outputs(this);
+  }
+}
+
+export class RequestBurnWithKYCCall__Inputs {
+  _call: RequestBurnWithKYCCall;
+
+  constructor(call: RequestBurnWithKYCCall) {
+    this._call = call;
+  }
+
+  get kycRequest(): RequestBurnWithKYCCallKycRequestStruct {
+    return changetype<RequestBurnWithKYCCallKycRequestStruct>(
+      this._call.inputValues[0].value.toTuple(),
+    );
+  }
+
+  get kycSignature(): Bytes {
+    return this._call.inputValues[1].value.toBytes();
+  }
+
+  get permitSignature(): Bytes {
+    return this._call.inputValues[2].value.toBytes();
+  }
+}
+
+export class RequestBurnWithKYCCall__Outputs {
+  _call: RequestBurnWithKYCCall;
+
+  constructor(call: RequestBurnWithKYCCall) {
+    this._call = call;
+  }
+}
+
+export class RequestBurnWithKYCCallKycRequestStruct extends ethereum.Tuple {
+  get user(): Address {
+    return this[0].toAddress();
+  }
+
+  get kycLevel(): i32 {
+    return this[1].toI32();
+  }
+
+  get nonce(): BigInt {
+    return this[2].toBigInt();
+  }
+
+  get deadline(): BigInt {
+    return this[3].toBigInt();
+  }
+
+  get usdToken(): Address {
+    return this[4].toAddress();
+  }
+
+  get goldAmount(): BigInt {
+    return this[5].toBigInt();
+  }
+
+  get minUsdAmount(): BigInt {
+    return this[6].toBigInt();
+  }
+}
+
+export class RequestMintCall extends ethereum.Call {
+  get inputs(): RequestMintCall__Inputs {
+    return new RequestMintCall__Inputs(this);
+  }
+
+  get outputs(): RequestMintCall__Outputs {
+    return new RequestMintCall__Outputs(this);
+  }
+}
+
+export class RequestMintCall__Inputs {
+  _call: RequestMintCall;
+
+  constructor(call: RequestMintCall) {
+    this._call = call;
+  }
+
+  get _usdToken(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get _usdAmount(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
+  }
+
+  get _minGoldAmount(): BigInt {
+    return this._call.inputValues[2].value.toBigInt();
+  }
+}
+
+export class RequestMintCall__Outputs {
+  _call: RequestMintCall;
+
+  constructor(call: RequestMintCall) {
+    this._call = call;
+  }
+}
+
+export class RequestMintPermitCall extends ethereum.Call {
+  get inputs(): RequestMintPermitCall__Inputs {
+    return new RequestMintPermitCall__Inputs(this);
+  }
+
+  get outputs(): RequestMintPermitCall__Outputs {
+    return new RequestMintPermitCall__Outputs(this);
+  }
+}
+
+export class RequestMintPermitCall__Inputs {
+  _call: RequestMintPermitCall;
+
+  constructor(call: RequestMintPermitCall) {
+    this._call = call;
+  }
+
+  get _usdToken(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get _usdAmount(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
+  }
+
+  get _minGoldAmount(): BigInt {
+    return this._call.inputValues[2].value.toBigInt();
+  }
+
+  get _sigDeadline(): BigInt {
+    return this._call.inputValues[3].value.toBigInt();
+  }
+
+  get _signature(): Bytes {
+    return this._call.inputValues[4].value.toBytes();
+  }
+}
+
+export class RequestMintPermitCall__Outputs {
+  _call: RequestMintPermitCall;
+
+  constructor(call: RequestMintPermitCall) {
+    this._call = call;
+  }
+}
+
+export class RequestMintWithKYCCall extends ethereum.Call {
+  get inputs(): RequestMintWithKYCCall__Inputs {
+    return new RequestMintWithKYCCall__Inputs(this);
+  }
+
+  get outputs(): RequestMintWithKYCCall__Outputs {
+    return new RequestMintWithKYCCall__Outputs(this);
+  }
+}
+
+export class RequestMintWithKYCCall__Inputs {
+  _call: RequestMintWithKYCCall;
+
+  constructor(call: RequestMintWithKYCCall) {
+    this._call = call;
+  }
+
+  get kycRequest(): RequestMintWithKYCCallKycRequestStruct {
+    return changetype<RequestMintWithKYCCallKycRequestStruct>(
+      this._call.inputValues[0].value.toTuple(),
+    );
+  }
+
+  get kycSignature(): Bytes {
+    return this._call.inputValues[1].value.toBytes();
+  }
+
+  get permitSignature(): Bytes {
+    return this._call.inputValues[2].value.toBytes();
+  }
+}
+
+export class RequestMintWithKYCCall__Outputs {
+  _call: RequestMintWithKYCCall;
+
+  constructor(call: RequestMintWithKYCCall) {
+    this._call = call;
+  }
+}
+
+export class RequestMintWithKYCCallKycRequestStruct extends ethereum.Tuple {
+  get user(): Address {
+    return this[0].toAddress();
+  }
+
+  get kycLevel(): i32 {
+    return this[1].toI32();
+  }
+
+  get nonce(): BigInt {
+    return this[2].toBigInt();
+  }
+
+  get deadline(): BigInt {
+    return this[3].toBigInt();
+  }
+
+  get usdToken(): Address {
+    return this[4].toAddress();
+  }
+
+  get usdAmount(): BigInt {
+    return this[5].toBigInt();
+  }
+
+  get minGoldAmount(): BigInt {
+    return this[6].toBigInt();
+  }
+}
+
+export class SetAMLBlacklistCall extends ethereum.Call {
+  get inputs(): SetAMLBlacklistCall__Inputs {
+    return new SetAMLBlacklistCall__Inputs(this);
+  }
+
+  get outputs(): SetAMLBlacklistCall__Outputs {
+    return new SetAMLBlacklistCall__Outputs(this);
+  }
+}
+
+export class SetAMLBlacklistCall__Inputs {
+  _call: SetAMLBlacklistCall;
+
+  constructor(call: SetAMLBlacklistCall) {
+    this._call = call;
+  }
+
+  get user(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get blacklisted(): boolean {
+    return this._call.inputValues[1].value.toBoolean();
+  }
+}
+
+export class SetAMLBlacklistCall__Outputs {
+  _call: SetAMLBlacklistCall;
+
+  constructor(call: SetAMLBlacklistCall) {
+    this._call = call;
+  }
+}
+
+export class SetLevelCall extends ethereum.Call {
+  get inputs(): SetLevelCall__Inputs {
+    return new SetLevelCall__Inputs(this);
+  }
+
+  get outputs(): SetLevelCall__Outputs {
+    return new SetLevelCall__Outputs(this);
+  }
+}
+
+export class SetLevelCall__Inputs {
+  _call: SetLevelCall;
+
+  constructor(call: SetLevelCall) {
+    this._call = call;
+  }
+
+  get user(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get level(): i32 {
+    return this._call.inputValues[1].value.toI32();
+  }
+}
+
+export class SetLevelCall__Outputs {
+  _call: SetLevelCall;
+
+  constructor(call: SetLevelCall) {
+    this._call = call;
+  }
+}
+
+export class SettleBurnCall extends ethereum.Call {
+  get inputs(): SettleBurnCall__Inputs {
+    return new SettleBurnCall__Inputs(this);
+  }
+
+  get outputs(): SettleBurnCall__Outputs {
+    return new SettleBurnCall__Outputs(this);
+  }
+}
+
+export class SettleBurnCall__Inputs {
+  _call: SettleBurnCall;
+
+  constructor(call: SettleBurnCall) {
+    this._call = call;
+  }
+
+  get burnNonce(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
+  }
+
+  get usdAmount(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
+  }
+}
+
+export class SettleBurnCall__Outputs {
+  _call: SettleBurnCall;
+
+  constructor(call: SettleBurnCall) {
+    this._call = call;
+  }
+}
+
+export class SettleMintCall extends ethereum.Call {
+  get inputs(): SettleMintCall__Inputs {
+    return new SettleMintCall__Inputs(this);
+  }
+
+  get outputs(): SettleMintCall__Outputs {
+    return new SettleMintCall__Outputs(this);
+  }
+}
+
+export class SettleMintCall__Inputs {
+  _call: SettleMintCall;
+
+  constructor(call: SettleMintCall) {
+    this._call = call;
+  }
+
+  get mintNonce(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
+  }
+
+  get goldAmount(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
+  }
+}
+
+export class SettleMintCall__Outputs {
+  _call: SettleMintCall;
+
+  constructor(call: SettleMintCall) {
+    this._call = call;
+  }
+}
+
+export class TransferOwnershipCall extends ethereum.Call {
+  get inputs(): TransferOwnershipCall__Inputs {
+    return new TransferOwnershipCall__Inputs(this);
+  }
+
+  get outputs(): TransferOwnershipCall__Outputs {
+    return new TransferOwnershipCall__Outputs(this);
+  }
+}
+
+export class TransferOwnershipCall__Inputs {
+  _call: TransferOwnershipCall;
+
+  constructor(call: TransferOwnershipCall) {
+    this._call = call;
+  }
+
+  get newOwner(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+}
+
+export class TransferOwnershipCall__Outputs {
+  _call: TransferOwnershipCall;
+
+  constructor(call: TransferOwnershipCall) {
+    this._call = call;
+  }
+}
+
+export class UpdateAutoSettleCall extends ethereum.Call {
+  get inputs(): UpdateAutoSettleCall__Inputs {
+    return new UpdateAutoSettleCall__Inputs(this);
+  }
+
+  get outputs(): UpdateAutoSettleCall__Outputs {
+    return new UpdateAutoSettleCall__Outputs(this);
+  }
+}
+
+export class UpdateAutoSettleCall__Inputs {
+  _call: UpdateAutoSettleCall;
+
+  constructor(call: UpdateAutoSettleCall) {
+    this._call = call;
+  }
+}
+
+export class UpdateAutoSettleCall__Outputs {
+  _call: UpdateAutoSettleCall;
+
+  constructor(call: UpdateAutoSettleCall) {
+    this._call = call;
+  }
+}
+
+export class UpdateFeesCall extends ethereum.Call {
+  get inputs(): UpdateFeesCall__Inputs {
+    return new UpdateFeesCall__Inputs(this);
+  }
+
+  get outputs(): UpdateFeesCall__Outputs {
+    return new UpdateFeesCall__Outputs(this);
+  }
+}
+
+export class UpdateFeesCall__Inputs {
+  _call: UpdateFeesCall;
+
+  constructor(call: UpdateFeesCall) {
+    this._call = call;
+  }
+
+  get _fees(): i32 {
+    return this._call.inputValues[0].value.toI32();
+  }
+}
+
+export class UpdateFeesCall__Outputs {
+  _call: UpdateFeesCall;
+
+  constructor(call: UpdateFeesCall) {
+    this._call = call;
+  }
+}
+
+export class UpdateMaxPriceAgeCall extends ethereum.Call {
+  get inputs(): UpdateMaxPriceAgeCall__Inputs {
+    return new UpdateMaxPriceAgeCall__Inputs(this);
+  }
+
+  get outputs(): UpdateMaxPriceAgeCall__Outputs {
+    return new UpdateMaxPriceAgeCall__Outputs(this);
+  }
+}
+
+export class UpdateMaxPriceAgeCall__Inputs {
+  _call: UpdateMaxPriceAgeCall;
+
+  constructor(call: UpdateMaxPriceAgeCall) {
+    this._call = call;
+  }
+
+  get _age(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
+  }
+}
+
+export class UpdateMaxPriceAgeCall__Outputs {
+  _call: UpdateMaxPriceAgeCall;
+
+  constructor(call: UpdateMaxPriceAgeCall) {
+    this._call = call;
+  }
+}
+
+export class UpdateMinGoldCall extends ethereum.Call {
+  get inputs(): UpdateMinGoldCall__Inputs {
+    return new UpdateMinGoldCall__Inputs(this);
+  }
+
+  get outputs(): UpdateMinGoldCall__Outputs {
+    return new UpdateMinGoldCall__Outputs(this);
+  }
+}
+
+export class UpdateMinGoldCall__Inputs {
+  _call: UpdateMinGoldCall;
+
+  constructor(call: UpdateMinGoldCall) {
+    this._call = call;
+  }
+
+  get _minGold(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
+  }
+}
+
+export class UpdateMinGoldCall__Outputs {
+  _call: UpdateMinGoldCall;
+
+  constructor(call: UpdateMinGoldCall) {
+    this._call = call;
+  }
+}
+
+export class UpdateMinGoldFeeCall extends ethereum.Call {
+  get inputs(): UpdateMinGoldFeeCall__Inputs {
+    return new UpdateMinGoldFeeCall__Inputs(this);
+  }
+
+  get outputs(): UpdateMinGoldFeeCall__Outputs {
+    return new UpdateMinGoldFeeCall__Outputs(this);
+  }
+}
+
+export class UpdateMinGoldFeeCall__Inputs {
+  _call: UpdateMinGoldFeeCall;
+
+  constructor(call: UpdateMinGoldFeeCall) {
+    this._call = call;
+  }
+
+  get _minGoldFee(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
+  }
+}
+
+export class UpdateMinGoldFeeCall__Outputs {
+  _call: UpdateMinGoldFeeCall;
+
+  constructor(call: UpdateMinGoldFeeCall) {
+    this._call = call;
+  }
+}
+
+export class UpdateMinGoldFeeAmountCall extends ethereum.Call {
+  get inputs(): UpdateMinGoldFeeAmountCall__Inputs {
+    return new UpdateMinGoldFeeAmountCall__Inputs(this);
+  }
+
+  get outputs(): UpdateMinGoldFeeAmountCall__Outputs {
+    return new UpdateMinGoldFeeAmountCall__Outputs(this);
+  }
+}
+
+export class UpdateMinGoldFeeAmountCall__Inputs {
+  _call: UpdateMinGoldFeeAmountCall;
+
+  constructor(call: UpdateMinGoldFeeAmountCall) {
+    this._call = call;
+  }
+
+  get _minGoldFeeAmount(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
+  }
+}
+
+export class UpdateMinGoldFeeAmountCall__Outputs {
+  _call: UpdateMinGoldFeeAmountCall;
+
+  constructor(call: UpdateMinGoldFeeAmountCall) {
+    this._call = call;
+  }
+}
+
+export class UpdatePriceFeedCall extends ethereum.Call {
+  get inputs(): UpdatePriceFeedCall__Inputs {
+    return new UpdatePriceFeedCall__Inputs(this);
+  }
+
+  get outputs(): UpdatePriceFeedCall__Outputs {
+    return new UpdatePriceFeedCall__Outputs(this);
+  }
+}
+
+export class UpdatePriceFeedCall__Inputs {
+  _call: UpdatePriceFeedCall;
+
+  constructor(call: UpdatePriceFeedCall) {
+    this._call = call;
+  }
+
+  get _goldPriceFeed(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+}
+
+export class UpdatePriceFeedCall__Outputs {
+  _call: UpdatePriceFeedCall;
+
+  constructor(call: UpdatePriceFeedCall) {
+    this._call = call;
+  }
+}
+
+export class UpdateRecipientCall extends ethereum.Call {
+  get inputs(): UpdateRecipientCall__Inputs {
+    return new UpdateRecipientCall__Inputs(this);
+  }
+
+  get outputs(): UpdateRecipientCall__Outputs {
+    return new UpdateRecipientCall__Outputs(this);
+  }
+}
+
+export class UpdateRecipientCall__Inputs {
+  _call: UpdateRecipientCall;
+
+  constructor(call: UpdateRecipientCall) {
+    this._call = call;
+  }
+
+  get _usdRecipient(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+}
+
+export class UpdateRecipientCall__Outputs {
+  _call: UpdateRecipientCall;
+
+  constructor(call: UpdateRecipientCall) {
+    this._call = call;
+  }
+}
+
+export class UpdateSlippageCall extends ethereum.Call {
+  get inputs(): UpdateSlippageCall__Inputs {
+    return new UpdateSlippageCall__Inputs(this);
+  }
+
+  get outputs(): UpdateSlippageCall__Outputs {
+    return new UpdateSlippageCall__Outputs(this);
+  }
+}
+
+export class UpdateSlippageCall__Inputs {
+  _call: UpdateSlippageCall;
+
+  constructor(call: UpdateSlippageCall) {
+    this._call = call;
+  }
+
+  get _slippage(): i32 {
+    return this._call.inputValues[0].value.toI32();
+  }
+}
+
+export class UpdateSlippageCall__Outputs {
+  _call: UpdateSlippageCall;
+
+  constructor(call: UpdateSlippageCall) {
+    this._call = call;
+  }
+}
+
+export class UpdateTradingLevelCall extends ethereum.Call {
+  get inputs(): UpdateTradingLevelCall__Inputs {
+    return new UpdateTradingLevelCall__Inputs(this);
+  }
+
+  get outputs(): UpdateTradingLevelCall__Outputs {
+    return new UpdateTradingLevelCall__Outputs(this);
+  }
+}
+
+export class UpdateTradingLevelCall__Inputs {
+  _call: UpdateTradingLevelCall;
+
+  constructor(call: UpdateTradingLevelCall) {
+    this._call = call;
+  }
+
+  get level(): i32 {
+    return this._call.inputValues[0].value.toI32();
+  }
+}
+
+export class UpdateTradingLevelCall__Outputs {
+  _call: UpdateTradingLevelCall;
+
+  constructor(call: UpdateTradingLevelCall) {
+    this._call = call;
   }
 }
