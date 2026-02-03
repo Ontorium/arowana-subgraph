@@ -5,7 +5,9 @@
     "scripts": {
         "codegen": "graph codegen",
         "build": "graph build",
-        "deploy": "graph deploy --studio arowana-dev"
+        "deploy-dev": "graph deploy arowana-dev  --ipfs https://ipfs.network.thegraph.com -l",
+        "deploy-stage": "graph deploy arowana-stage  --ipfs https://ipfs.network.thegraph.com -l",
+        "deploy-prod": "graph deploy arowana-prod  --ipfs https://ipfs.network.thegraph.com -l"
     },
     "dependencies": {
         "@graphprotocol/graph-cli": "0.98.1",

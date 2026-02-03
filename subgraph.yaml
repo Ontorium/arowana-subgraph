@@ -118,27 +118,53 @@ dataSources:
           file: ./src/swap-v2.ts
 
     # ===== PancakeSwap V3 Pools =====
-    # V3 Pool 주소 확인 후 추가 필요 (NFT Position Manager 주소가 아닌 실제 Pool 주소)
 
-    # - kind: ethereum
-    #   name: PancakeV3Pool_AGT_USDC
-    #   network: arbitrum-sepolia
-    #   source:
-    #     address: "0x..."  # 실제 V3 Pool 주소
-    #     abi: PancakeV3Pool
-    #     startBlock: 231300783
-    #   mapping:
-    #     kind: ethereum/events
-    #     apiVersion: 0.0.7
-    #     language: wasm/assemblyscript
-    #     entities:
-    #       - Swap
-    #       - SwapStats
-    #       - UserSwapStats
-    #     abis:
-    #       - name: PancakeV3Pool
-    #         file: ./abis/PancakeV3Pool.json
-    #     eventHandlers:
-    #       - event: Swap(indexed address,indexed address,int256,int256,uint160,uint128,int24)
-    #         handler: handleSwapV3
-    #     file: ./src/swap-v3.ts
+    - kind: ethereum
+      name: PancakeV3Pool_AGT_USDC
+      network: arbitrum-sepolia
+      source:
+          address: "0x2a835aC4C5dD862c19f18aB8F5496F4004CDE0F9"
+          abi: PancakeV3Pool
+          startBlock: 237189904
+      mapping:
+          kind: ethereum/events
+          apiVersion: 0.0.7
+          language: wasm/assemblyscript
+          entities:
+              - Swap
+              - SwapStats
+              - UserSwapStats
+              - UserActivity
+              - DailyStats
+          abis:
+              - name: PancakeV3Pool
+                file: ./abis/PancakeV3Pool.json
+          eventHandlers:
+              - event: Swap(indexed address,indexed address,int256,int256,uint160,uint128,int24,uint128,uint128)
+                handler: handleSwapV3
+          file: ./src/swap-v3.ts
+
+    - kind: ethereum
+      name: PancakeV3Pool_AGT_USDT
+      network: arbitrum-sepolia
+      source:
+          address: "0x6486Be521993fBddE2875E168B87F5D4C1B67c92"
+          abi: PancakeV3Pool
+          startBlock: 237189393
+      mapping:
+          kind: ethereum/events
+          apiVersion: 0.0.7
+          language: wasm/assemblyscript
+          entities:
+              - Swap
+              - SwapStats
+              - UserSwapStats
+              - UserActivity
+              - DailyStats
+          abis:
+              - name: PancakeV3Pool
+                file: ./abis/PancakeV3Pool.json
+          eventHandlers:
+              - event: Swap(indexed address,indexed address,int256,int256,uint160,uint128,int24,uint128,uint128)
+                handler: handleSwapV3
+          file: ./src/swap-v3.ts
