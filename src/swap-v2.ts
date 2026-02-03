@@ -1,5 +1,5 @@
 import { BigInt, Bytes } from "@graphprotocol/graph-ts";
-import { Swap as SwapEvent } from "../generated/PancakeV2Pair/PancakeV2Pair";
+import { Swap as SwapEvent } from "../generated/PancakeV2Pair_AGT_USDT/PancakeV2Pair";
 import {
     Swap,
     SwapStats,
