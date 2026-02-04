@@ -7,7 +7,7 @@ import {
     UserActivity,
 } from "../generated/schema";
 import { updateDailySwap } from "./utils/daily-stats";
-import { AGT_TOKEN, isAGTToken0, getStablecoinForPool } from "./config";
+import { AGT_TOKEN, isAGTToken0, getStablecoinForPool, getTokenSymbol } from "./config";
 
 const SWAP_STATS_ID = "1";
 
@@ -133,6 +133,7 @@ export function handleSwapV2(event: SwapEvent): void {
     activity.activityType = isAGTIn ? "swap_sell" : "swap_buy";
     activity.amount = agtVolume;
     activity.relatedToken = isAGTIn ? tokenOut : tokenIn;
+    activity.relatedTokenType = getTokenSymbol(isAGTIn ? tokenOut : tokenIn);
     activity.relatedAmount = isAGTIn ? amountOut : amountIn;
     activity.blockNumber = event.block.number;
     activity.timestamp = event.block.timestamp;

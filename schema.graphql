@@ -118,6 +118,7 @@ type UserActivity @entity(immutable: true) {
   amount: BigInt!               # AGT 금액
   counterparty: Bytes           # transfer의 경우 상대방 주소
   relatedToken: Bytes           # swap/mint/redeem의 경우 상대 토큰 (USDT, USDC 등)
+  relatedTokenType: String      # "USDT", "USDC", "AGT"
   relatedAmount: BigInt         # 상대 토큰 금액
   blockNumber: BigInt!
   timestamp: BigInt!

@@ -1,28 +1,29 @@
 import { Address, Bytes } from "@graphprotocol/graph-ts";
 
 export const AGT_TOKEN = Address.fromString(
-    "0xfa23fd059662ab424a75691c03b62126afe78057",
+    "0xe02b08b4e21baf8d364b547f932db939c76a33bf",
 );
 export const USDT_TOKEN = Address.fromString(
-    "0xcf7b084757873062fc7a86320f400380f9358cda",
+    "0x6777ab1c1ebfc40d3442202158bea959e04ac744",
 );
 export const USDC_TOKEN = Address.fromString(
-    "0x9848bb9287ba3f87c8098dbf7533e604030fe912",
+    "0xc3437da5e936d3449d6f0700a71847305e9357be",
 );
 
+// V2 Pools
 export const POOL_V2_AGT_USDT = Address.fromString(
-    "0x436D13E80CfbD0045AE1667201A792b60214793b",
+    "0x958bd5d338a61868ff800c2bb98b973a3102b7fe",
 );
 export const POOL_V2_AGT_USDC = Address.fromString(
-    "0xEa4A71D0617CDaA4b2494a447016D6DF17fE2Ed9",
+    "0x7522681bc79c8f60840f409fec03051cbe04eea9",
 );
 
 // V3 Pools
 export const POOL_V3_AGT_USDT = Address.fromString(
-    "0x2a835aC4C5dD862c19f18aB8F5496F4004CDE0F9",
+    "0x43d29746bfb69d1ffb3bc6a73b3785d2c2b725e2",
 );
 export const POOL_V3_AGT_USDC = Address.fromString(
-    "0x6486Be521993fBddE2875E168B87F5D4C1B67c92",
+    "0x25353758099f5d984ff6e1064d642e228b5ffd68",
 );
 
 // Legacy aliases for V2 pools
@@ -49,4 +50,16 @@ export function isV3Pool(poolAddress: Address): boolean {
         poolAddress.equals(POOL_V3_AGT_USDT) ||
         poolAddress.equals(POOL_V3_AGT_USDC)
     );
+}
+
+export function getTokenSymbol(tokenAddress: Bytes): string {
+    let addr = Address.fromBytes(tokenAddress);
+    if (addr.equals(AGT_TOKEN)) {
+        return "AGT";
+    } else if (addr.equals(USDT_TOKEN)) {
+        return "USDT";
+    } else if (addr.equals(USDC_TOKEN)) {
+        return "USDC";
+    }
+    return "UNKNOWN";
 }

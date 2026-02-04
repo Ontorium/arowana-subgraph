@@ -13,6 +13,7 @@ import {
   UserActivity
 } from "../generated/schema";
 import { updateDailyMint, updateDailyRedeem } from "./utils/daily-stats";
+import { getTokenSymbol } from "./config";
 
 const STATS_ID = "1";
 const FEE_BPS = BigInt.fromI32(40); // 0.4% = 40 basis points
@@ -102,6 +103,7 @@ export function handleSettleMint(event: SettleMintEvent): void {
       activity.activityType = "mint";
       activity.amount = netGoldAmount;
       activity.relatedToken = mintRequest.usdToken;
+      activity.relatedTokenType = getTokenSymbol(mintRequest.usdToken);
       activity.relatedAmount = mintRequest.usdAmount;
       activity.blockNumber = event.block.number;
       activity.timestamp = event.block.timestamp;
@@ -164,6 +166,7 @@ export function handleSettleBurn(event: SettleBurnEvent): void {
       activity.activityType = "redeem";
       activity.amount = redeemRequest.goldAmount;
       activity.relatedToken = redeemRequest.usdToken;
+      activity.relatedTokenType = getTokenSymbol(redeemRequest.usdToken);
       activity.relatedAmount = event.params.usdAmount;
       activity.blockNumber = event.block.number;
       activity.timestamp = event.block.timestamp;

@@ -94,6 +94,7 @@ export function handleTransfer(event: TransferEvent): void {
     activityOut.activityType = "transfer_out";
     activityOut.amount = event.params.value;
     activityOut.counterparty = event.params.to;
+    activityOut.relatedTokenType = "AGT";
     activityOut.blockNumber = event.block.number;
     activityOut.timestamp = event.block.timestamp;
     activityOut.transactionHash = event.transaction.hash;
@@ -109,6 +110,7 @@ export function handleTransfer(event: TransferEvent): void {
     activityIn.activityType = "transfer_in";
     activityIn.amount = event.params.value;
     activityIn.counterparty = event.params.from;
+    activityIn.relatedTokenType = "AGT";
     activityIn.blockNumber = event.block.number;
     activityIn.timestamp = event.block.timestamp;
     activityIn.transactionHash = event.transaction.hash;
