@@ -545,6 +545,12 @@
             },
             {
                 "indexed": false,
+                "internalType": "uint256",
+                "name": "feeAmount",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
                 "internalType": "bool",
                 "name": "success",
                 "type": "bool"
@@ -566,6 +572,12 @@
                 "indexed": false,
                 "internalType": "uint256",
                 "name": "goldAmount",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "feeAmount",
                 "type": "uint256"
             },
             {
@@ -602,19 +614,6 @@
             }
         ],
         "name": "UpdateAutoSettle",
-        "type": "event"
-    },
-    {
-        "anonymous": false,
-        "inputs": [
-            {
-                "indexed": false,
-                "internalType": "uint16",
-                "name": "newFees",
-                "type": "uint16"
-            }
-        ],
-        "name": "UpdateFees",
         "type": "event"
     },
     {
@@ -693,6 +692,32 @@
         "inputs": [
             {
                 "indexed": false,
+                "internalType": "uint16",
+                "name": "newMintFee",
+                "type": "uint16"
+            }
+        ],
+        "name": "UpdateMintFee",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "uint16",
+                "name": "newMintSpread",
+                "type": "uint16"
+            }
+        ],
+        "name": "UpdateMintSpread",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
                 "internalType": "address",
                 "name": "newPriceFeed",
                 "type": "address"
@@ -712,6 +737,32 @@
             }
         ],
         "name": "UpdateRecipient",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "uint16",
+                "name": "newRedeemFee",
+                "type": "uint16"
+            }
+        ],
+        "name": "UpdateRedeemFee",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "uint16",
+                "name": "newRedeemSpread",
+                "type": "uint16"
+            }
+        ],
+        "name": "UpdateRedeemSpread",
         "type": "event"
     },
     {
@@ -837,6 +888,11 @@
                 "internalType": "uint256",
                 "name": "_goldAmount",
                 "type": "uint256"
+            },
+            {
+                "internalType": "bool",
+                "name": "isMint",
+                "type": "bool"
             }
         ],
         "name": "calculateGoldFee",
@@ -929,19 +985,6 @@
         "name": "emergencyUnpause",
         "outputs": [],
         "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "fees",
-        "outputs": [
-            {
-                "internalType": "uint16",
-                "name": "",
-                "type": "uint16"
-            }
-        ],
-        "stateMutability": "view",
         "type": "function"
     },
     {
@@ -1415,6 +1458,32 @@
     },
     {
         "inputs": [],
+        "name": "mintFee",
+        "outputs": [
+            {
+                "internalType": "uint16",
+                "name": "",
+                "type": "uint16"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "mintSpread",
+        "outputs": [
+            {
+                "internalType": "uint16",
+                "name": "",
+                "type": "uint16"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
         "name": "owner",
         "outputs": [
             {
@@ -1434,6 +1503,32 @@
                 "internalType": "bool",
                 "name": "",
                 "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "redeemFee",
+        "outputs": [
+            {
+                "internalType": "uint16",
+                "name": "",
+                "type": "uint16"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "redeemSpread",
+        "outputs": [
+            {
+                "internalType": "uint16",
+                "name": "",
+                "type": "uint16"
             }
         ],
         "stateMutability": "view",
@@ -1815,19 +1910,6 @@
     {
         "inputs": [
             {
-                "internalType": "uint16",
-                "name": "_fees",
-                "type": "uint16"
-            }
-        ],
-        "name": "updateFees",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
                 "internalType": "uint256",
                 "name": "_age",
                 "type": "uint256"
@@ -1880,6 +1962,32 @@
     {
         "inputs": [
             {
+                "internalType": "uint16",
+                "name": "_mintFee",
+                "type": "uint16"
+            }
+        ],
+        "name": "updateMintFee",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint16",
+                "name": "_mintSpread",
+                "type": "uint16"
+            }
+        ],
+        "name": "updateMintSpread",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
                 "internalType": "address",
                 "name": "_goldPriceFeed",
                 "type": "address"
@@ -1899,6 +2007,32 @@
             }
         ],
         "name": "updateRecipient",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint16",
+                "name": "_redeemFee",
+                "type": "uint16"
+            }
+        ],
+        "name": "updateRedeemFee",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint16",
+                "name": "_redeemSpread",
+                "type": "uint16"
+            }
+        ],
+        "name": "updateRedeemSpread",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
