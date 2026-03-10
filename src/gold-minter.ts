@@ -16,13 +16,6 @@ import { updateDailyMint, updateDailyRedeem } from "./utils/daily-stats";
 import { getTokenSymbol } from "./config";
 
 const STATS_ID = "1";
-const FEE_BPS = BigInt.fromI32(40); // 0.4% = 40 basis points
-const BPS_DENOMINATOR = BigInt.fromI32(10000);
-
-function calculateNetGoldAmount(grossGoldAmount: BigInt): BigInt {
-  let feeAmount = grossGoldAmount.times(FEE_BPS).div(BPS_DENOMINATOR);
-  return grossGoldAmount.minus(feeAmount);
-}
 
 function getOrCreateMintStats(): MintStats {
   let stats = MintStats.load(STATS_ID);
@@ -72,7 +65,8 @@ export function handleSettleMint(event: SettleMintEvent): void {
 
   if (mintRequest != null) {
     let grossGoldAmount = event.params.goldAmount;
-    let netGoldAmount = calculateNetGoldAmount(grossGoldAmount);
+    let feeAmount = event.params.feeAmount;
+    let netGoldAmount = grossGoldAmount.minus(feeAmount);
 
     mintRequest.goldAmount = netGoldAmount;
     mintRequest.success = event.params.success;
