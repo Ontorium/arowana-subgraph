@@ -55,6 +55,57 @@ type UserSwapStats @entity(immutable: false) {
 
 # ===== Mint/Redeem Tracking =====
 
+enum OrderStatus {
+  PENDING
+  COMPLETED
+  FAILED
+}
+
+type MintOrder @entity(immutable: false) {
+  id: ID!                       # nonce
+  nonce: BigInt!
+  buyer: Bytes!                 # 유저 지갑
+  usdToken: Bytes!
+  usdAmount: BigInt!            # 6 decimals
+  minGoldAmount: BigInt!        # 18 decimals
+
+  # Settlement (정산 시 연결)
+  goldAmount: BigInt            # 실제 받은 AGT
+  feeAmount: BigInt             # 수수료
+
+  status: OrderStatus!
+
+  # 트랜잭션 정보
+  txHash: Bytes!
+  blockNumber: BigInt!
+  timestamp: BigInt!
+
+  settledTxHash: Bytes
+  settledAt: BigInt
+}
+
+type BurnOrder @entity(immutable: false) {
+  id: ID!                       # nonce
+  nonce: BigInt!
+  seller: Bytes!                # 유저 지갑
+  usdToken: Bytes!
+  goldAmount: BigInt!           # 18 decimals
+  minUsdAmount: BigInt!         # 6 decimals
+
+  # Settlement
+  usdAmount: BigInt             # 실제 받은 USD
+  feeAmount: BigInt
+
+  status: OrderStatus!
+
+  txHash: Bytes!
+  blockNumber: BigInt!
+  timestamp: BigInt!
+
+  settledTxHash: Bytes
+  settledAt: BigInt
+}
+
 type MintRequest @entity(immutable: false) {
   id: ID!                       # nonce
   nonce: BigInt!
