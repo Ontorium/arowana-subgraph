@@ -6,13 +6,13 @@ import {
     SettleBurn as SettleBurnEvent,
 } from "../generated/GoldMinter/GoldMinter";
 import {
-    MintRequest,
-    RedeemRequest,
-    MintOrder,
-    BurnOrder,
-    MintStats,
-    UserMintStats,
-    UserActivity,
+  MintRequest,
+  RedeemRequest,
+  MintOrder,
+  BurnOrder,
+  MintStats,
+  UserMintStats,
+  UserActivity
 } from "../generated/schema";
 import { updateDailyMint, updateDailyRedeem } from "./utils/daily-stats";
 import { getTokenSymbol } from "./config";
@@ -51,31 +51,31 @@ function getOrCreateUserMintStats(
 export function handleRequestMint(event: RequestMintEvent): void {
     let id = event.params.nonce.toString();
 
-    // 기존 MintRequest 엔티티 (하위 호환성)
-    let mintRequest = new MintRequest(id);
-    mintRequest.nonce = event.params.nonce;
-    mintRequest.buyer = event.params.buyer;
-    mintRequest.usdToken = event.params.usdToken;
-    mintRequest.usdAmount = event.params.usdAmount;
-    mintRequest.minGoldAmount = event.params.minGoldAmount;
-    mintRequest.status = "pending";
-    mintRequest.requestBlockNumber = event.block.number;
-    mintRequest.requestTimestamp = event.block.timestamp;
-    mintRequest.requestTxHash = event.transaction.hash;
-    mintRequest.save();
+  // 기존 MintRequest 엔티티 (하위 호환성)
+  let mintRequest = new MintRequest(id);
+  mintRequest.nonce = event.params.nonce;
+  mintRequest.buyer = event.params.buyer;
+  mintRequest.usdToken = event.params.usdToken;
+  mintRequest.usdAmount = event.params.usdAmount;
+  mintRequest.minGoldAmount = event.params.minGoldAmount;
+  mintRequest.status = "pending";
+  mintRequest.requestBlockNumber = event.block.number;
+  mintRequest.requestTimestamp = event.block.timestamp;
+  mintRequest.requestTxHash = event.transaction.hash;
+  mintRequest.save();
 
-    // 새 MintOrder 엔티티
-    let mintOrder = new MintOrder(id);
-    mintOrder.nonce = event.params.nonce;
-    mintOrder.buyer = event.params.buyer;
-    mintOrder.usdToken = event.params.usdToken;
-    mintOrder.usdAmount = event.params.usdAmount;
-    mintOrder.minGoldAmount = event.params.minGoldAmount;
-    mintOrder.status = "PENDING";
-    mintOrder.txHash = event.transaction.hash;
-    mintOrder.blockNumber = event.block.number;
-    mintOrder.timestamp = event.block.timestamp;
-    mintOrder.save();
+  // 새 MintOrder 엔티티
+  let mintOrder = new MintOrder(id);
+  mintOrder.nonce = event.params.nonce;
+  mintOrder.buyer = event.params.buyer;
+  mintOrder.usdToken = event.params.usdToken;
+  mintOrder.usdAmount = event.params.usdAmount;
+  mintOrder.minGoldAmount = event.params.minGoldAmount;
+  mintOrder.status = "PENDING";
+  mintOrder.txHash = event.transaction.hash;
+  mintOrder.blockNumber = event.block.number;
+  mintOrder.timestamp = event.block.timestamp;
+  mintOrder.save();
 }
 
 export function handleSettleMint(event: SettleMintEvent): void {
@@ -127,51 +127,51 @@ export function handleSettleMint(event: SettleMintEvent): void {
             activity.transactionHash = event.transaction.hash;
             activity.save();
 
-            // Update daily stats
-            updateDailyMint(event.block.timestamp, netGoldAmount);
-        }
+      // Update daily stats
+      updateDailyMint(event.block.timestamp, netGoldAmount);
     }
+  }
 
-    // 새 MintOrder 엔티티 업데이트
-    let mintOrder = MintOrder.load(id);
-    if (mintOrder != null) {
-        mintOrder.goldAmount = event.params.goldAmount;
-        mintOrder.feeAmount = event.params.feeAmount;
-        mintOrder.status = event.params.success ? "COMPLETED" : "FAILED";
-        mintOrder.settledTxHash = event.transaction.hash;
-        mintOrder.settledAt = event.block.timestamp;
-        mintOrder.save();
-    }
+  // 새 MintOrder 엔티티 업데이트
+  let mintOrder = MintOrder.load(id);
+  if (mintOrder != null) {
+    mintOrder.goldAmount = event.params.goldAmount;
+    mintOrder.feeAmount = event.params.feeAmount;
+    mintOrder.status = event.params.success ? "COMPLETED" : "FAILED";
+    mintOrder.settledTxHash = event.transaction.hash;
+    mintOrder.settledAt = event.block.timestamp;
+    mintOrder.save();
+  }
 }
 
 export function handleRequestBurn(event: RequestBurnEvent): void {
     let id = event.params.nonce.toString();
 
-    // 기존 RedeemRequest 엔티티 (하위 호환성)
-    let redeemRequest = new RedeemRequest(id);
-    redeemRequest.nonce = event.params.nonce;
-    redeemRequest.seller = event.params.seller;
-    redeemRequest.usdToken = event.params.usdToken;
-    redeemRequest.goldAmount = event.params.goldAmount;
-    redeemRequest.minUsdAmount = event.params.minUsdAmount;
-    redeemRequest.status = "pending";
-    redeemRequest.requestBlockNumber = event.block.number;
-    redeemRequest.requestTimestamp = event.block.timestamp;
-    redeemRequest.requestTxHash = event.transaction.hash;
-    redeemRequest.save();
+  // 기존 RedeemRequest 엔티티 (하위 호환성)
+  let redeemRequest = new RedeemRequest(id);
+  redeemRequest.nonce = event.params.nonce;
+  redeemRequest.seller = event.params.seller;
+  redeemRequest.usdToken = event.params.usdToken;
+  redeemRequest.goldAmount = event.params.goldAmount;
+  redeemRequest.minUsdAmount = event.params.minUsdAmount;
+  redeemRequest.status = "pending";
+  redeemRequest.requestBlockNumber = event.block.number;
+  redeemRequest.requestTimestamp = event.block.timestamp;
+  redeemRequest.requestTxHash = event.transaction.hash;
+  redeemRequest.save();
 
-    // 새 BurnOrder 엔티티
-    let burnOrder = new BurnOrder(id);
-    burnOrder.nonce = event.params.nonce;
-    burnOrder.seller = event.params.seller;
-    burnOrder.usdToken = event.params.usdToken;
-    burnOrder.goldAmount = event.params.goldAmount;
-    burnOrder.minUsdAmount = event.params.minUsdAmount;
-    burnOrder.status = "PENDING";
-    burnOrder.txHash = event.transaction.hash;
-    burnOrder.blockNumber = event.block.number;
-    burnOrder.timestamp = event.block.timestamp;
-    burnOrder.save();
+  // 새 BurnOrder 엔티티
+  let burnOrder = new BurnOrder(id);
+  burnOrder.nonce = event.params.nonce;
+  burnOrder.seller = event.params.seller;
+  burnOrder.usdToken = event.params.usdToken;
+  burnOrder.goldAmount = event.params.goldAmount;
+  burnOrder.minUsdAmount = event.params.minUsdAmount;
+  burnOrder.status = "PENDING";
+  burnOrder.txHash = event.transaction.hash;
+  burnOrder.blockNumber = event.block.number;
+  burnOrder.timestamp = event.block.timestamp;
+  burnOrder.save();
 }
 
 export function handleSettleBurn(event: SettleBurnEvent): void {
@@ -224,19 +224,19 @@ export function handleSettleBurn(event: SettleBurnEvent): void {
             activity.transactionHash = event.transaction.hash;
             activity.save();
 
-            // Update daily stats
-            updateDailyRedeem(event.block.timestamp, redeemRequest.goldAmount);
-        }
+      // Update daily stats
+      updateDailyRedeem(event.block.timestamp, redeemRequest.goldAmount);
     }
+  }
 
-    // 새 BurnOrder 엔티티 업데이트
-    let burnOrder = BurnOrder.load(id);
-    if (burnOrder != null) {
-        burnOrder.usdAmount = event.params.usdAmount;
-        burnOrder.feeAmount = event.params.feeAmount;
-        burnOrder.status = event.params.success ? "COMPLETED" : "FAILED";
-        burnOrder.settledTxHash = event.transaction.hash;
-        burnOrder.settledAt = event.block.timestamp;
-        burnOrder.save();
-    }
+  // 새 BurnOrder 엔티티 업데이트
+  let burnOrder = BurnOrder.load(id);
+  if (burnOrder != null) {
+    burnOrder.usdAmount = event.params.usdAmount;
+    burnOrder.feeAmount = event.params.feeAmount;
+    burnOrder.status = event.params.success ? "COMPLETED" : "FAILED";
+    burnOrder.settledTxHash = event.transaction.hash;
+    burnOrder.settledAt = event.block.timestamp;
+    burnOrder.save();
+  }
 }

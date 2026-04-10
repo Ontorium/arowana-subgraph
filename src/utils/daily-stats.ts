@@ -31,7 +31,7 @@ export function getOrCreateDailyStats(timestamp: BigInt): DailyStats {
 
         // 스왑 통계
         dailyStats.swapCount = 0;
-        dailyStats.swapVolumeAGT = BigInt.fromI32(0);
+        dailyStats.swapVolumeOXAU = BigInt.fromI32(0);
 
         // 민트 통계
         dailyStats.mintCount = 0;
@@ -64,11 +64,11 @@ export function updateDailyTransfer(
     dailyStats.save();
 }
 
-export function updateDailySwap(timestamp: BigInt, volumeAGT: BigInt): void {
+export function updateDailySwap(timestamp: BigInt, volumeOXAU: BigInt): void {
     let dailyStats = getOrCreateDailyStats(timestamp);
 
     dailyStats.swapCount = dailyStats.swapCount + 1;
-    dailyStats.swapVolumeAGT = dailyStats.swapVolumeAGT.plus(volumeAGT);
+    dailyStats.swapVolumeOXAU = dailyStats.swapVolumeOXAU.plus(volumeOXAU);
 
     dailyStats.save();
 }

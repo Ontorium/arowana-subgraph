@@ -1,5 +1,5 @@
 import { BigInt, Bytes } from "@graphprotocol/graph-ts";
-import { Swap as SwapEvent } from "../generated/PancakeV3Pool_AGT_USDC/PancakeV3Pool";
+import { Swap as SwapEvent } from "../generated/PancakeV3Pool_OXAU_USDC/PancakeV3Pool";
 import {
     Swap,
     SwapStats,
@@ -7,7 +7,7 @@ import {
     UserActivity,
 } from "../generated/schema";
 import { updateDailySwap } from "./utils/daily-stats";
-import { AGT_TOKEN, isAGTToken0, getStablecoinForPool, getTokenSymbol } from "./config";
+import { OXAU_TOKEN, isOXAUToken0, getStablecoinForPool, getTokenSymbol } from "./config";
 
 const SWAP_STATS_ID = "1";
 
@@ -16,7 +16,7 @@ function getOrCreateSwapStats(): SwapStats {
     if (stats == null) {
         stats = new SwapStats(SWAP_STATS_ID);
         stats.totalSwapCount = BigInt.fromI32(0);
-        stats.totalVolumeAGT = BigInt.fromI32(0);
+        stats.totalVolumeOXAU = BigInt.fromI32(0);
     }
     return stats;
 }
@@ -50,47 +50,47 @@ export function handleSwapV3(event: SwapEvent): void {
     let amount0 = event.params.amount0;
     let amount1 = event.params.amount1;
 
-    let agtIsToken0 = isAGTToken0(event.address);
+    let oxauIsToken0 = isOXAUToken0(event.address);
     let stablecoin = getStablecoinForPool(event.address);
 
     let amountIn: BigInt;
     let amountOut: BigInt;
     let tokenIn: Bytes;
     let tokenOut: Bytes;
-    let isAGTIn: boolean;
-    let agtVolume: BigInt;
+    let isOXAUIn: boolean;
+    let oxauVolume: BigInt;
 
-    if (agtIsToken0) {
+    if (oxauIsToken0) {
         if (amount0.gt(BigInt.fromI32(0))) {
             amountIn = amount0;
             amountOut = abs(amount1);
-            tokenIn = Bytes.fromHexString(AGT_TOKEN.toHexString());
+            tokenIn = Bytes.fromHexString(OXAU_TOKEN.toHexString());
             tokenOut = stablecoin;
-            isAGTIn = true;
-            agtVolume = amount0;
+            isOXAUIn = true;
+            oxauVolume = amount0;
         } else {
             amountIn = amount1;
             amountOut = abs(amount0);
             tokenIn = stablecoin;
-            tokenOut = Bytes.fromHexString(AGT_TOKEN.toHexString());
-            isAGTIn = false;
-            agtVolume = abs(amount0);
+            tokenOut = Bytes.fromHexString(OXAU_TOKEN.toHexString());
+            isOXAUIn = false;
+            oxauVolume = abs(amount0);
         }
     } else {
         if (amount1.gt(BigInt.fromI32(0))) {
             amountIn = amount1;
             amountOut = abs(amount0);
-            tokenIn = Bytes.fromHexString(AGT_TOKEN.toHexString());
+            tokenIn = Bytes.fromHexString(OXAU_TOKEN.toHexString());
             tokenOut = stablecoin;
-            isAGTIn = true;
-            agtVolume = amount1;
+            isOXAUIn = true;
+            oxauVolume = amount1;
         } else {
             amountIn = amount0;
             amountOut = abs(amount1);
             tokenIn = stablecoin;
-            tokenOut = Bytes.fromHexString(AGT_TOKEN.toHexString());
-            isAGTIn = false;
-            agtVolume = abs(amount1);
+            tokenOut = Bytes.fromHexString(OXAU_TOKEN.toHexString());
+            isOXAUIn = false;
+            oxauVolume = abs(amount1);
         }
     }
 
@@ -110,7 +110,7 @@ export function handleSwapV3(event: SwapEvent): void {
     swap.save();
 
     stats.totalSwapCount = stats.totalSwapCount.plus(BigInt.fromI32(1));
-    stats.totalVolumeAGT = stats.totalVolumeAGT.plus(abs(agtVolume));
+    stats.totalVolumeOXAU = stats.totalVolumeOXAU.plus(abs(oxauVolume));
     stats.save();
 
     let userStats = getOrCreateUserSwapStats(
@@ -120,12 +120,12 @@ export function handleSwapV3(event: SwapEvent): void {
     userStats.swapCount = userStats.swapCount + 1;
     userStats.lastSwapAt = event.block.timestamp;
 
-    if (isAGTIn) {
+    if (isOXAUIn) {
         userStats.totalVolumeOut = userStats.totalVolumeOut.plus(
-            abs(agtVolume),
+            abs(oxauVolume),
         );
     } else {
-        userStats.totalVolumeIn = userStats.totalVolumeIn.plus(abs(agtVolume));
+        userStats.totalVolumeIn = userStats.totalVolumeIn.plus(abs(oxauVolume));
     }
     userStats.save();
 
@@ -133,16 +133,16 @@ export function handleSwapV3(event: SwapEvent): void {
         event.transaction.hash.concatI32(event.logIndex.toI32()),
     );
     activity.user = event.params.recipient;
-    activity.activityType = isAGTIn ? "swap_sell" : "swap_buy";
-    activity.amount = abs(agtVolume);
-    activity.relatedToken = isAGTIn ? tokenOut : tokenIn;
-    activity.relatedTokenType = getTokenSymbol(isAGTIn ? tokenOut : tokenIn);
-    activity.relatedAmount = isAGTIn ? amountOut : abs(amountIn);
+    activity.activityType = isOXAUIn ? "swap_sell" : "swap_buy";
+    activity.amount = abs(oxauVolume);
+    activity.relatedToken = isOXAUIn ? tokenOut : tokenIn;
+    activity.relatedTokenType = getTokenSymbol(isOXAUIn ? tokenOut : tokenIn);
+    activity.relatedAmount = isOXAUIn ? amountOut : abs(amountIn);
     activity.blockNumber = event.block.number;
     activity.timestamp = event.block.timestamp;
     activity.transactionHash = event.transaction.hash;
     activity.save();
 
     // DailyStats 업데이트
-    updateDailySwap(event.block.timestamp, abs(agtVolume));
+    updateDailySwap(event.block.timestamp, abs(oxauVolume));
 }
