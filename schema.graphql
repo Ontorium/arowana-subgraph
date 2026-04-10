@@ -41,14 +41,14 @@ type Swap @entity(immutable: true) {
 type SwapStats @entity(immutable: false) {
   id: ID!
   totalSwapCount: BigInt!       # 총 스왑 횟수
-  totalVolumeAGT: BigInt!       # AGT 총 거래량
+  totalVolumeOXAU: BigInt!      # OXAU 총 거래량
 }
 
 type UserSwapStats @entity(immutable: false) {
   id: Bytes!                    # 유저 주소
   swapCount: Int!               # 스왑 횟수
-  totalVolumeIn: BigInt!        # AGT 매수 총량
-  totalVolumeOut: BigInt!       # AGT 매도 총량
+  totalVolumeIn: BigInt!        # OXAU 매수 총량
+  totalVolumeOut: BigInt!       # OXAU 매도 총량
   firstSwapAt: BigInt!
   lastSwapAt: BigInt!
 }
@@ -70,7 +70,7 @@ type MintOrder @entity(immutable: false) {
   minGoldAmount: BigInt!        # 18 decimals
 
   # Settlement (정산 시 연결)
-  goldAmount: BigInt            # 실제 받은 AGT
+  goldAmount: BigInt            # 실제 받은 OXAU
   feeAmount: BigInt             # 수수료
 
   status: OrderStatus!
@@ -145,17 +145,17 @@ type RedeemRequest @entity(immutable: false) {
 type MintStats @entity(immutable: false) {
   id: ID!
   totalMintCount: BigInt!
-  totalMintVolume: BigInt!      # 총 민트된 AGT
+  totalMintVolume: BigInt!      # 총 민트된 OXAU
   totalRedeemCount: BigInt!
-  totalRedeemVolume: BigInt!    # 총 리딤된 AGT
+  totalRedeemVolume: BigInt!    # 총 리딤된 OXAU
 }
 
 type UserMintStats @entity(immutable: false) {
   id: Bytes!                    # 유저 주소
   mintCount: Int!
   redeemCount: Int!
-  totalMintVolume: BigInt!      # 총 민트한 AGT
-  totalRedeemVolume: BigInt!    # 총 리딤한 AGT
+  totalMintVolume: BigInt!      # 총 민트한 OXAU
+  totalRedeemVolume: BigInt!    # 총 리딤한 OXAU
   firstActivityAt: BigInt!
   lastActivityAt: BigInt!
 }
@@ -166,10 +166,10 @@ type UserActivity @entity(immutable: true) {
   id: Bytes!                    # txHash + logIndex
   user: Bytes!
   activityType: String!         # "mint", "redeem", "swap_buy", "swap_sell", "transfer_in", "transfer_out"
-  amount: BigInt!               # AGT 금액
+  amount: BigInt!               # OXAU 금액
   counterparty: Bytes           # transfer의 경우 상대방 주소
   relatedToken: Bytes           # swap/mint/redeem의 경우 상대 토큰 (USDT, USDC 등)
-  relatedTokenType: String      # "USDT", "USDC", "AGT"
+  relatedTokenType: String      # "USDT", "USDC", "OXAU"
   relatedAmount: BigInt         # 상대 토큰 금액
   blockNumber: BigInt!
   timestamp: BigInt!
@@ -188,17 +188,17 @@ type DailyStats @entity(immutable: false) {
 
   # 전송 통계
   transferCount: Int!           # 해당 일 전송 횟수
-  transferVolume: BigInt!       # 해당 일 전송량 (AGT)
+  transferVolume: BigInt!       # 해당 일 전송량 (OXAU)
 
   # 스왑 통계
   swapCount: Int!               # 해당 일 스왑 횟수
-  swapVolumeAGT: BigInt!        # 해당 일 스왑 거래량 (AGT)
+  swapVolumeOXAU: BigInt!       # 해당 일 스왑 거래량 (OXAU)
 
   # 민트 통계
   mintCount: Int!               # 해당 일 민트 완료 횟수
-  mintVolume: BigInt!           # 해당 일 민트량 (AGT)
+  mintVolume: BigInt!           # 해당 일 민트량 (OXAU)
 
   # 리딤 통계
   redeemCount: Int!             # 해당 일 리딤 완료 횟수
-  redeemVolume: BigInt!         # 해당 일 리딤량 (AGT)
+  redeemVolume: BigInt!         # 해당 일 리딤량 (OXAU)
 }
