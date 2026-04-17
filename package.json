@@ -7,7 +7,7 @@
         "build": "graph build",
         "deploy-dev": "graph deploy ontorium-dev  --ipfs https://ipfs.network.thegraph.com -l",
         "deploy-stage": "graph deploy ontorium-stage  --ipfs https://ipfs.network.thegraph.com -l",
-        "deploy-prod": "graph deploy ontorium-prod  --ipfs https://ipfs.network.thegraph.com -l"
+        "deploy-prod": "graph deploy ontorium  --ipfs https://ipfs.network.thegraph.com -l"
     },
     "dependencies": {
         "@graphprotocol/graph-cli": "0.98.1",
